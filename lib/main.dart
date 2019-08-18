@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'AsceticLauncherPage.dart';
+import 'ascetic_launcher_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,10 +13,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SafeArea(
-        child: AsceticLauncherPage(
-          title: 'Flutter Demo Home Page',
-        ),
+      home: AsceticLauncherPage(
+        title: 'Flutter Demo Home Page',
       ),
     );
   }

@@ -13,15 +13,21 @@ class AppListItem extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           DeviceApps.openApp(app.packageName);
+          // print(app.packageName);
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
+              flex: 4,
               child: Text(
                 app.appName.toString(),
                 style: TextStyle(fontSize: 20.0),
               ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Image.memory(app.icon),
             )
           ],
         ),
