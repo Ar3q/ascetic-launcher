@@ -3,7 +3,7 @@ import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'app_list_item.dart';
+import 'apps_list.dart';
 
 const key = 'favofite_apps';
 
@@ -18,9 +18,11 @@ class AsceticLauncherPage extends StatefulWidget {
 
 class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
   List<Application> _apps = List<Application>();
-  List<String> favoriteApps = List<String>();
+  List<Application> favoriteApps = List<Application>();
 
-  getApplications() async {
+  bool isShowingAllApps = false;
+
+  getAllApplications() async {
     List<Application> appList = await DeviceApps.getInstalledApplications(
         includeAppIcons: true,
         includeSystemApps: true,
@@ -39,8 +41,10 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
 
     print('lenght ' + favAppsStringList.length.toString());
 
+    List<Application> favApps = await convertToListOfApps(favAppsStringList);
+
     setState(() {
-      favoriteApps = favAppsStringList;
+      favoriteApps = favApps;
     });
   }
 
@@ -49,23 +53,40 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
     prefs.setStringList(key, newFavoriteAppsList);
   }
 
-  updateFavoriteAppsListAndState(List<String> updatedList) {
+  updateFavoriteAppsListAndState(List<String> updatedList) async {
+    List<Application> updatedFavAppsList =
+        await convertToListOfApps(updatedList);
+
     setState(() {
-      favoriteApps = updatedList;
+      favoriteApps = updatedFavAppsList;
     });
 
     saveFavoriteAppsToSharedPrefs(updatedList);
   }
 
+  Future<List<Application>> convertToListOfApps(List<String> appList) async {
+    List<Application> applicationsList = List<Application>();
+
+    for (var packageName in appList) {
+      final app = await DeviceApps.getApp(packageName, true);
+      applicationsList.add(app);
+      print(app.packageName);
+    }
+
+    return applicationsList;
+  }
+
   @override
   void initState() {
     super.initState();
-    getApplications();
+    getAllApplications();
     fetchFavoriteAppsFromSharedPrefs();
   }
 
   @override
   Widget build(BuildContext context) {
+    // Future<List<Application>> favApps = convertToListOfApps(favoriteApps);
+    //to state
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -73,58 +94,46 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Clock(),
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.all(8.0),
-                  itemCount: _apps.length,
-                  itemBuilder: (context, i) => listItemBuilder(context, i),
-                  separatorBuilder: (context, i) => Divider(),
+              Visibility(
+                visible: !isShowingAllApps,
+                child: Expanded(
+                  child: GestureDetector(
+                    onDoubleTap: () {
+                      setState(() {
+                        isShowingAllApps = !isShowingAllApps;
+                      });
+                    },
+                    child: AppsList(
+                      apps: favoriteApps,
+                      favoriteApps:
+                          favoriteApps.map((app) => app.packageName).toList(),
+                      onUpdateFavoriteApps: updateFavoriteAppsListAndState,
+                    ),
+                  ),
                 ),
               ),
+              Visibility(
+                visible: isShowingAllApps,
+                child: Expanded(
+                  child: GestureDetector(
+                    onDoubleTap: () {
+                      setState(() {
+                        isShowingAllApps = !isShowingAllApps;
+                      });
+                    },
+                    child: AppsList(
+                      apps: _apps,
+                      favoriteApps:
+                          favoriteApps.map((app) => app.packageName).toList(),
+                      onUpdateFavoriteApps: updateFavoriteAppsListAndState,
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
       ),
     );
-  }
-
-  Widget listItemBuilder(BuildContext context, int index) {
-    final app = _apps[index];
-    final isFavoriteApp = favoriteApps.contains(app.packageName);
-    return AppListItem(
-      app: app,
-      isFavorite: isFavoriteApp,
-      onFavoriteClicked: () => onFavoriteClicked(app, isFavoriteApp),
-    );
-  }
-
-  onFavoriteClicked(Application app, bool isFavoriteApp) {
-    print(favoriteApps);
-
-    if (isFavoriteApp) {
-      removeFromFavoriteApps(app);
-    } else {
-      addToFavoriteApps(app);
-    }
-  }
-
-  removeFromFavoriteApps(Application app) {
-    List<String> updatedFavAppsList = List<String>();
-    updatedFavAppsList = favoriteApps;
-    updatedFavAppsList.remove(app.packageName);
-
-    updateFavoriteAppsListAndState(updatedFavAppsList);
-  }
-
-  addToFavoriteApps(Application app) {
-    if (favoriteApps.length < 6) {
-      List<String> updatedFavAppsList = List<String>();
-      updatedFavAppsList = favoriteApps;
-      updatedFavAppsList.add(app.packageName);
-
-      updateFavoriteAppsListAndState(updatedFavAppsList);
-    } else {
-      print('max 5 apps');
-    }
   }
 }
