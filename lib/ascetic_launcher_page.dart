@@ -2,6 +2,7 @@ import 'package:ascetic_launcher/clock.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 import 'apps_list.dart';
 
@@ -90,19 +91,31 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Clock(),
-              Visibility(
-                visible: !isShowingAllApps,
-                child: Expanded(
-                  child: GestureDetector(
-                    onDoubleTap: () {
-                      setState(() {
-                        isShowingAllApps = !isShowingAllApps;
-                      });
-                    },
+          child: SimpleGestureDetector(
+            onHorizontalSwipe: (direction) {
+              if (direction == SwipeDirection.left) {
+                print('left');
+                if (!isShowingAllApps) {
+                  setState(() {
+                    isShowingAllApps = true;
+                  });
+                }
+              } else if (direction == SwipeDirection.right) {
+                print('right');
+                if (isShowingAllApps) {
+                  setState(() {
+                    isShowingAllApps = false;
+                  });
+                }
+              }
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Clock(),
+                Visibility(
+                  visible: !isShowingAllApps,
+                  child: Expanded(
                     child: AppsList(
                       apps: favoriteApps,
                       favoriteApps:
@@ -111,26 +124,26 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
                     ),
                   ),
                 ),
-              ),
-              Visibility(
-                visible: isShowingAllApps,
-                child: Expanded(
-                  child: GestureDetector(
-                    onDoubleTap: () {
-                      setState(() {
-                        isShowingAllApps = !isShowingAllApps;
-                      });
-                    },
-                    child: AppsList(
-                      apps: _apps,
-                      favoriteApps:
-                          favoriteApps.map((app) => app.packageName).toList(),
-                      onUpdateFavoriteApps: updateFavoriteAppsListAndState,
+                Visibility(
+                  visible: isShowingAllApps,
+                  child: Expanded(
+                    child: GestureDetector(
+                      onDoubleTap: () {
+                        setState(() {
+                          isShowingAllApps = !isShowingAllApps;
+                        });
+                      },
+                      child: AppsList(
+                        apps: _apps,
+                        favoriteApps:
+                            favoriteApps.map((app) => app.packageName).toList(),
+                        onUpdateFavoriteApps: updateFavoriteAppsListAndState,
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
