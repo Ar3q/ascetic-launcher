@@ -1,6 +1,5 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AppListItem extends StatefulWidget {
   final app;
@@ -71,43 +70,4 @@ class _AppListItemState extends State<AppListItem> {
       ),
     );
   }
-
-  // onFavoriteClicked() async {
-  //   const key = 'favofite_apps';
-  //   final prefs = await SharedPreferences.getInstance();
-
-  //   List<String> favoriteApps = prefs.getStringList(key) ?? [];
-
-  //   print(favoriteApps);
-
-  //   if (isFavorite) {
-  //     removeFromFavoriteApps(favoriteApps, prefs, key);
-  //   } else {
-  //     addToFavoriteApps(favoriteApps, prefs, key);
-  //   }
-  // }
-
-  // addToFavoriteApps(
-  //     List<String> favAppList, SharedPreferences prefs, String key) {
-  //   if (favAppList.length < 6) {
-  //     favAppList.add(widget.app.packageName);
-  //     prefs.setStringList(key, favAppList);
-
-  //     setState(() {
-  //       isFavorite = true;
-  //     });
-  //   } else {
-  //     final snackBar = SnackBar(
-  //       content: Text('Max 5 apps may be favorite'),
-  //     );
-
-  //     Scaffold.of(context).showSnackBar(snackBar);
-  //   }
-  // }
-
-  // removeFromFavoriteApps(
-  //     List<String> favAppList, SharedPreferences prefs, String key) {
-  //       favAppList.remove(widget.app.packageName);
-  //       prefs.setStringList(key, favAppList);
-  //     }
 }

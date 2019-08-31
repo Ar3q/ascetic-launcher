@@ -1,6 +1,8 @@
+import 'package:ascetic_launcher/all_apps_page.dart';
 import 'package:ascetic_launcher/clock.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
@@ -94,54 +96,31 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
           child: SimpleGestureDetector(
             onHorizontalSwipe: (direction) {
               if (direction == SwipeDirection.left) {
-                print('left');
-                if (!isShowingAllApps) {
-                  setState(() {
-                    isShowingAllApps = true;
-                  });
-                }
-              } else if (direction == SwipeDirection.right) {
-                print('right');
-                if (isShowingAllApps) {
-                  setState(() {
-                    isShowingAllApps = false;
-                  });
-                }
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.rightToLeftWithFade,
+                    child: AllAppsPage(
+                      allApps: _apps,
+                      favoriteApps:
+                          favoriteApps.map((app) => app.packageName).toList(),
+                    ),
+                  ),
+                );
               }
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Clock(),
-                Visibility(
-                  visible: !isShowingAllApps,
-                  child: Expanded(
-                    child: AppsList(
-                      apps: favoriteApps,
-                      favoriteApps:
-                          favoriteApps.map((app) => app.packageName).toList(),
-                      onUpdateFavoriteApps: updateFavoriteAppsListAndState,
-                    ),
+                Expanded(
+                  child: AppsList(
+                    apps: favoriteApps,
+                    favoriteApps:
+                        favoriteApps.map((app) => app.packageName).toList(),
+                    onUpdateFavoriteApps: updateFavoriteAppsListAndState,
                   ),
                 ),
-                Visibility(
-                  visible: isShowingAllApps,
-                  child: Expanded(
-                    child: GestureDetector(
-                      onDoubleTap: () {
-                        setState(() {
-                          isShowingAllApps = !isShowingAllApps;
-                        });
-                      },
-                      child: AppsList(
-                        apps: _apps,
-                        favoriteApps:
-                            favoriteApps.map((app) => app.packageName).toList(),
-                        onUpdateFavoriteApps: updateFavoriteAppsListAndState,
-                      ),
-                    ),
-                  ),
-                )
               ],
             ),
           ),
