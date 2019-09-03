@@ -1,14 +1,16 @@
 import 'package:ascetic_launcher/all_apps_page.dart';
+import 'package:ascetic_launcher/bloc/bloc.dart';
 import 'package:ascetic_launcher/clock.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 import 'apps_list.dart';
 
-const key = 'favofite_apps';
+const key = 'favorite_apps';
 
 class AsceticLauncherPage extends StatefulWidget {
   AsceticLauncherPage({Key key, this.title}) : super(key: key);
@@ -22,6 +24,8 @@ class AsceticLauncherPage extends StatefulWidget {
 class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
   List<Application> _apps = List<Application>();
   List<Application> favoriteApps = List<Application>();
+
+  // final favoriteAppsBloc = FavoriteAppsBloc();
 
   bool isShowingAllApps = false;
 
@@ -71,7 +75,9 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
     List<Application> applicationsList = List<Application>();
 
     for (var packageName in appList) {
+      print('packageName from StringList $packageName');
       final app = await DeviceApps.getApp(packageName, true);
+      print('packageName from Application ' + app.toString());
       applicationsList.add(app);
       print(app.packageName);
     }
@@ -88,8 +94,6 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Future<List<Application>> favApps = convertToListOfApps(favoriteApps);
-    //to state
     return Scaffold(
       body: SafeArea(
         child: Center(
