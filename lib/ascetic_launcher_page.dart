@@ -5,7 +5,6 @@ import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 import 'apps_list.dart';
@@ -23,9 +22,7 @@ class AsceticLauncherPage extends StatefulWidget {
 
 class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
   List<Application> _apps = List<Application>();
-  List<Application> favoriteApps = List<Application>();
-
-  // final favoriteAppsBloc = FavoriteAppsBloc();
+  FavoriteAppsBloc favoriteAppsBloc;
 
   bool isShowingAllApps = false;
 
@@ -42,44 +39,14 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
     });
   }
 
-  fetchFavoriteAppsFromSharedPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    List<String> favAppsStringList = prefs.getStringList(key) ?? [];
-
-    print('lenght ' + favAppsStringList.length.toString());
-
-    List<Application> favApps = await convertToListOfApps(favAppsStringList);
-
-    setState(() {
-      favoriteApps = favApps;
-    });
-  }
-
-  saveFavoriteAppsToSharedPrefs(List<String> newFavoriteAppsList) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(key, newFavoriteAppsList);
-  }
-
-  updateFavoriteAppsListAndState(List<String> updatedList) async {
-    List<Application> updatedFavAppsList =
-        await convertToListOfApps(updatedList);
-
-    setState(() {
-      favoriteApps = updatedFavAppsList;
-    });
-
-    saveFavoriteAppsToSharedPrefs(updatedList);
-  }
-
   Future<List<Application>> convertToListOfApps(List<String> appList) async {
     List<Application> applicationsList = List<Application>();
 
     for (var packageName in appList) {
-      print('packageName from StringList $packageName');
       final app = await DeviceApps.getApp(packageName, true);
-      print('packageName from Application ' + app.toString());
-      applicationsList.add(app);
-      print(app.packageName);
+      if (app != null) {
+        applicationsList.add(app);
+      }
     }
 
     return applicationsList;
@@ -89,7 +56,10 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
   void initState() {
     super.initState();
     getAllApplications();
-    fetchFavoriteAppsFromSharedPrefs();
+    setState(() {
+      favoriteAppsBloc = BlocProvider.of<FavoriteAppsBloc>(context);
+    });
+    favoriteAppsBloc.dispatch(GetFavoriteApps());
   }
 
   @override
@@ -106,8 +76,6 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
                     type: PageTransitionType.rightToLeftWithFade,
                     child: AllAppsPage(
                       allApps: _apps,
-                      favoriteApps:
-                          favoriteApps.map((app) => app.packageName).toList(),
                     ),
                   ),
                 );
@@ -117,13 +85,19 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Clock(),
-                Expanded(
-                  child: AppsList(
-                    apps: favoriteApps,
-                    favoriteApps:
-                        favoriteApps.map((app) => app.packageName).toList(),
-                    onUpdateFavoriteApps: updateFavoriteAppsListAndState,
-                  ),
+                BlocBuilder<FavoriteAppsBloc, FavoriteAppsState>(
+                  bloc: favoriteAppsBloc,
+                  builder: (context, state) {
+                    if (state is FavoriteAppsLoaded) {
+                      return Expanded(
+                        child: AppsList(
+                          apps: state.favoriteApps,
+                        ),
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
                 ),
               ],
             ),

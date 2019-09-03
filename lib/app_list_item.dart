@@ -1,12 +1,14 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/bloc.dart';
 
 class AppListItem extends StatefulWidget {
   final app;
   final isFavorite;
-  final onFavoriteClicked;
 
-  const AppListItem({this.app, this.isFavorite, this.onFavoriteClicked});
+  const AppListItem({this.app, this.isFavorite});
 
   @override
   _AppListItemState createState() => _AppListItemState();
@@ -14,7 +16,7 @@ class AppListItem extends StatefulWidget {
 
 class _AppListItemState extends State<AppListItem> {
   bool shouldBeStarShown;
-  
+
   @override
   void initState() {
     super.initState();
@@ -56,7 +58,8 @@ class _AppListItemState extends State<AppListItem> {
                 child: GestureDetector(
                   onTap: () {
                     print('fav');
-                    widget.onFavoriteClicked();
+                    // widget.onFavoriteClicked();
+                    onFavoriteClicked();
                   },
                   child: Icon(
                     widget.isFavorite ? Icons.star : Icons.star_border,
@@ -69,5 +72,20 @@ class _AppListItemState extends State<AppListItem> {
         ),
       ),
     );
+  }
+
+  onFavoriteClicked() {
+    final favoriteAppsBloc = BlocProvider.of<FavoriteAppsBloc>(context);
+
+    if (widget.isFavorite) {
+      //remove
+      favoriteAppsBloc.dispatch(DeleteFromFavoriteApps(widget.app));
+      setState(() {
+        shouldBeStarShown = false;
+      });
+    } else {
+      //add
+      favoriteAppsBloc.dispatch(AddToFavoriteApps(widget.app));
+    }
   }
 }

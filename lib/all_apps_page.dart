@@ -10,9 +10,8 @@ import 'bloc/bloc.dart';
 
 class AllAppsPage extends StatefulWidget {
   final List<Application> allApps;
-  final List<String> favoriteApps;
 
-  const AllAppsPage({this.allApps, this.favoriteApps});
+  const AllAppsPage({this.allApps});
 
   @override
   _AllAppsPageState createState() => _AllAppsPageState();
@@ -64,28 +63,13 @@ class _AllAppsPageState extends State<AllAppsPage> {
                 BlocBuilder<FavoriteAppsBloc, FavoriteAppsState>(
                   bloc: favoriteAppsBloc,
                   builder: (context, state) {
-                    print('BlocBuilder ' + state.toString());
                     if (state is FavoriteAppsLoaded) {
                       return Expanded(
                         child: AppsList(
                           apps: widget.allApps,
-                          favoriteApps: state.favoriteApps,
+                          // favoriteApps: state.favoriteApps,
                         ),
                       );
-                    } else if (state is AddToFavoriteApps) {
-                      print('state is AddToFavoriteApps');
-                      final snackBar = SnackBar(
-                        content: Text('App added to favorites'),
-                      );
-
-                      Scaffold.of(context).showSnackBar(snackBar);
-                    } else if (state is DeleteFromFavoriteApps) {
-                      print('state is DeleteFromFavoriteApps');
-                      final snackBar = SnackBar(
-                        content: Text('App deleted from favorites'),
-                      );
-
-                      Scaffold.of(context).showSnackBar(snackBar);
                     } else {
                       return CircularProgressIndicator();
                     }
