@@ -1,5 +1,5 @@
 import 'package:ascetic_launcher/all_apps_page.dart';
-import 'package:ascetic_launcher/bloc/bloc.dart';
+import 'bloc/favorite_apps/bloc.dart';
 import 'package:ascetic_launcher/clock.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';

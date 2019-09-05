@@ -1,6 +1,7 @@
-import 'package:ascetic_launcher/repositories/favorite_apps_shared_preferences.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/foundation.dart';
+
+import 'favorite_apps_shared_preferences.dart';
 
 class FavoriteAppsRepository {
   final FavoriteAppsSharedPreferences favoriteAppsSharedPreferences;

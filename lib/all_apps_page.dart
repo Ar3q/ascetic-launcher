@@ -1,4 +1,4 @@
-import 'package:ascetic_launcher/bloc/favorite_apps_bloc.dart';
+import 'package:ascetic_launcher/bloc/all_apps/bloc.dart';
 import 'package:ascetic_launcher/search_field.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 import 'apps_list.dart';
-import 'bloc/bloc.dart';
 
 class AllAppsPage extends StatefulWidget {
   final List<Application> allApps;
@@ -18,15 +17,15 @@ class AllAppsPage extends StatefulWidget {
 }
 
 class _AllAppsPageState extends State<AllAppsPage> {
-  FavoriteAppsBloc favoriteAppsBloc;
+  AllAppsBloc allAppsBloc;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      favoriteAppsBloc = BlocProvider.of<FavoriteAppsBloc>(context);
+      allAppsBloc = BlocProvider.of<AllAppsBloc>(context);
     });
-    favoriteAppsBloc.dispatch(GetFavoriteApps());
+    allAppsBloc.dispatch(GetAllApps());
   }
 
   @override
@@ -60,21 +59,34 @@ class _AllAppsPageState extends State<AllAppsPage> {
                 SizedBox(
                   height: 15.0,
                 ),
-                BlocBuilder<FavoriteAppsBloc, FavoriteAppsState>(
-                  bloc: favoriteAppsBloc,
+                // BlocBuilder<FavoriteAppsBloc, FavoriteAppsState>(
+                //   bloc: allAppsBloc,
+                //   builder: (context, state) {
+                //     if (state is FavoriteAppsLoaded) {
+                //       return Expanded(
+                //         child: AppsList(
+                //           apps: widget.allApps,
+                //         ),
+                //       );
+                //     } else {
+                //       return CircularProgressIndicator();
+                //     }
+                //   },
+                // ),
+                BlocBuilder<AllAppsBloc, AllAppsState>(
+                  bloc: BlocProvider.of<AllAppsBloc>(context),
                   builder: (context, state) {
-                    if (state is FavoriteAppsLoaded) {
+                    if (state is AllAppsLoaded) {
                       return Expanded(
                         child: AppsList(
-                          apps: widget.allApps,
-                          // favoriteApps: state.favoriteApps,
+                          apps: state.allApps,  
                         ),
                       );
                     } else {
                       return CircularProgressIndicator();
                     }
                   },
-                ),
+                )
               ],
             ),
           ),

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:ascetic_launcher/repositories/favorite_apps_repository.dart';
+import 'package:ascetic_launcher/repositories/favorite_apps/favorite_apps_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/widgets.dart';
