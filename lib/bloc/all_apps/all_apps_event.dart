@@ -8,3 +8,9 @@ abstract class AllAppsEvent extends Equatable {
 
 class GetAllApps extends AllAppsEvent {
 }
+
+class SearchForApps extends AllAppsEvent {
+  final String searchPhrase;
+
+  SearchForApps(this.searchPhrase) : super([searchPhrase]);
+}

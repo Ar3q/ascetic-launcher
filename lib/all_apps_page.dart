@@ -59,27 +59,20 @@ class _AllAppsPageState extends State<AllAppsPage> {
                 SizedBox(
                   height: 15.0,
                 ),
-                // BlocBuilder<FavoriteAppsBloc, FavoriteAppsState>(
-                //   bloc: allAppsBloc,
-                //   builder: (context, state) {
-                //     if (state is FavoriteAppsLoaded) {
-                //       return Expanded(
-                //         child: AppsList(
-                //           apps: widget.allApps,
-                //         ),
-                //       );
-                //     } else {
-                //       return CircularProgressIndicator();
-                //     }
-                //   },
-                // ),
                 BlocBuilder<AllAppsBloc, AllAppsState>(
                   bloc: BlocProvider.of<AllAppsBloc>(context),
                   builder: (context, state) {
                     if (state is AllAppsLoaded) {
                       return Expanded(
                         child: AppsList(
-                          apps: state.allApps,  
+                          apps: state.allApps,
+                        ),
+                      );
+                    } else if (state is AppsFound) {
+                      print('found' + state.foundApps.toString());
+                      return Expanded(
+                        child: AppsList(
+                          apps: state.foundApps,
                         ),
                       );
                     } else {

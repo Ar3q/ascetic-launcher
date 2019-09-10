@@ -1,8 +1,8 @@
+import 'package:ascetic_launcher/constants/keys.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteAppsSharedPreferences {
-  static const sharedPreferencesKey = 'favorite_apps';
   static const maxNumberOfFavoriteApps = 4;
 
   FavoriteAppsSharedPreferences();
@@ -20,7 +20,7 @@ class FavoriteAppsSharedPreferences {
   Future<List<String>> _getFavoriteAppsFromSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
 
-    List<String> favAppsStringList = prefs.getStringList(sharedPreferencesKey) ?? [];
+    List<String> favAppsStringList = prefs.getStringList(FAVORITE_APPLICATIONS_SHARED_PREFERENCES_KEY) ?? [];
 
     return favAppsStringList;
   }
@@ -66,6 +66,6 @@ class FavoriteAppsSharedPreferences {
   Future<void> _saveStringListOfFavoriteAppsToSharedPreferences(
       List<String> favoriteApps) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(sharedPreferencesKey, favoriteApps);
+    prefs.setStringList(FAVORITE_APPLICATIONS_SHARED_PREFERENCES_KEY, favoriteApps);
   }
 }

@@ -16,13 +16,13 @@ class FavoriteAppsLoaded extends FavoriteAppsState {
 }
 
 class AppAddedToFavoriteApps extends FavoriteAppsState {
-  final List<Application> favoriteApps;
+  final Application addedApp;
 
-  AppAddedToFavoriteApps({this.favoriteApps}) : super([favoriteApps]);
+  AppAddedToFavoriteApps({this.addedApp}) : super([addedApp]);
 }
 
 class AppDeletedFromFavoriteApps extends FavoriteAppsState {
-  final List<Application> favoriteApps;
+  final Application deletedApp;
 
-  AppDeletedFromFavoriteApps({this.favoriteApps}) : super([favoriteApps]);
+  AppDeletedFromFavoriteApps({this.deletedApp}) : super([deletedApp]);
 }

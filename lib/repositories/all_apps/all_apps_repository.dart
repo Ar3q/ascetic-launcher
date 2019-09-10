@@ -5,13 +5,24 @@ import 'package:flutter/foundation.dart';
 class AllAppsRepository {
   final AllAppsDataProvider allAppsDataProvider;
 
-  AllAppsRepository({@required this.allAppsDataProvider}) : assert(allAppsDataProvider != null);
+  AllAppsRepository({@required this.allAppsDataProvider})
+      : assert(allAppsDataProvider != null);
 
   Future<List<Application>> getAllApplications() async {
     List<Application> allApps = await allAppsDataProvider.getAllApps();
 
-    allApps.sort((a,b) => a.appName.compareTo(b.appName));
+    allApps.sort((a, b) => a.appName.compareTo(b.appName));
 
     return allApps;
+  }
+
+  Future<List<Application>> getApplicationsWhithNameContainingPhrase(
+      String searchedPhrase) async {
+    List<Application> allApps = await getAllApplications();
+
+    List<Application> matchingApps =
+        allApps.where((app) => app.appName.toLowerCase().contains(searchedPhrase.toLowerCase())).toList();
+
+    return matchingApps;
   }
 }

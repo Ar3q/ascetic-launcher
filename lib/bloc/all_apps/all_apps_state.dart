@@ -14,3 +14,9 @@ class AllAppsLoaded extends AllAppsState {
 
   AllAppsLoaded({this.allApps}) : super([allApps]);
 }
+
+class AppsFound extends AllAppsState {
+  final List<Application> foundApps;
+
+  AppsFound(this.foundApps) : super([foundApps]);
+}

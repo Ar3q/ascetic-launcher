@@ -1,4 +1,5 @@
 import 'package:ascetic_launcher/all_apps_page.dart';
+import 'package:ascetic_launcher/bloc/all_apps/bloc.dart';
 import 'bloc/favorite_apps/bloc.dart';
 import 'package:ascetic_launcher/clock.dart';
 import 'package:device_apps/device_apps.dart';
@@ -8,8 +9,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 import 'apps_list.dart';
-
-const key = 'favorite_apps';
 
 class AsceticLauncherPage extends StatefulWidget {
   AsceticLauncherPage({Key key, this.title}) : super(key: key);
@@ -21,23 +20,10 @@ class AsceticLauncherPage extends StatefulWidget {
 }
 
 class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
-  List<Application> _apps = List<Application>();
   FavoriteAppsBloc favoriteAppsBloc;
+  AllAppsBloc allAppsBloc;
 
   bool isShowingAllApps = false;
-
-  getAllApplications() async {
-    List<Application> appList = await DeviceApps.getInstalledApplications(
-        includeAppIcons: true,
-        includeSystemApps: true,
-        onlyAppsWithLaunchIntent: true);
-
-    appList.sort((a, b) => a.appName.compareTo(b.appName));
-
-    setState(() {
-      _apps = appList;
-    });
-  }
 
   Future<List<Application>> convertToListOfApps(List<String> appList) async {
     List<Application> applicationsList = List<Application>();
@@ -55,11 +41,12 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
   @override
   void initState() {
     super.initState();
-    getAllApplications();
     setState(() {
       favoriteAppsBloc = BlocProvider.of<FavoriteAppsBloc>(context);
+      allAppsBloc = BlocProvider.of<AllAppsBloc>(context);
     });
     favoriteAppsBloc.dispatch(GetFavoriteApps());
+    allAppsBloc.dispatch(GetAllApps());
   }
 
   @override
@@ -74,9 +61,7 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
                   context,
                   PageTransition(
                     type: PageTransitionType.rightToLeftWithFade,
-                    child: AllAppsPage(
-                      allApps: _apps,
-                    ),
+                    child: AllAppsPage(),
                   ),
                 );
               }

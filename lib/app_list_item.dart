@@ -15,14 +15,12 @@ class AppListItem extends StatefulWidget {
 
 class _AppListItemState extends State<AppListItem> {
   bool shouldBeStarShown;
-  bool isFavorite;
 
   @override
   void initState() {
     super.initState();
     setState(() {
       shouldBeStarShown = false;
-      isFavorite = false;
     });
   }
 
@@ -39,68 +37,55 @@ class _AppListItemState extends State<AppListItem> {
             shouldBeStarShown = !shouldBeStarShown;
           });
         },
-        child: BlocListener<FavoriteAppsBloc, FavoriteAppsState>(
+        child: BlocBuilder<FavoriteAppsBloc, FavoriteAppsState>(
           bloc: BlocProvider.of<FavoriteAppsBloc>(context),
-          listener: (context, state) {
+          builder: (context, state) {
             if (state is FavoriteAppsLoaded) {
-              print('before ' + isFavorite.toString());
-              setState(() {
-                isFavorite = isAppFavorite(state.favoriteApps);
-              });
-              print('after ' + isFavorite.toString());
+              return getItem(state.favoriteApps);
+            } else {
+              return CircularProgressIndicator();
             }
           },
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                flex: 4,
-                child: Text(
-                  widget.app.appName.toString(),
-                  style: TextStyle(fontSize: 20.0),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Image.memory(widget.app.icon),
-              ),
-              Visibility(
-                visible: shouldBeStarShown,
-                child: Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      print('fav');
-                      onFavoriteClicked();
-                    },
-                    child: Icon(
-                      isFavorite ? Icons.star : Icons.star_border,
-                      color: isFavorite ? Colors.yellow : null,
-                      size: 35.0,
-                    ),
-                  ),
-                ),
-              ),
-              // child: Expanded(
-              //   child: GestureDetector(
-              //     onTap: () {
-              //       print('fav');
-              //       onFavoriteClicked();
-              //     },
-              //     child: Icon(
-              //       isFavorite ? Icons.star : Icons.star_border,
-              //       color: isFavorite ? Colors.yellow : null,
-              //       size: 35.0,
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
         ),
       ),
     );
   }
 
-  void onFavoriteClicked() {
+  Row getItem(List<Application> favoriteApps) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        Expanded(
+          flex: 4,
+          child: Text(
+            widget.app.appName.toString(),
+            style: TextStyle(fontSize: 20.0),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Image.memory(widget.app.icon),
+        ),
+        Visibility(
+          visible: shouldBeStarShown,
+          child: Expanded(
+            child: GestureDetector(
+              onTap: () {
+                onFavoriteClicked(isAppFavorite(favoriteApps));
+              },
+              child: Icon(
+                isAppFavorite(favoriteApps) ? Icons.star : Icons.star_border,
+                color: isAppFavorite(favoriteApps) ? Colors.yellow : null,
+                size: 35.0,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void onFavoriteClicked(bool isFavorite) {
     final favoriteAppsBloc = BlocProvider.of<FavoriteAppsBloc>(context);
 
     if (isFavorite) {
@@ -113,20 +98,14 @@ class _AppListItemState extends State<AppListItem> {
       //add
       favoriteAppsBloc.dispatch(AddToFavoriteApps(widget.app));
     }
-
-    setState(() {
-      isFavorite = !isFavorite;
-    });
   }
 
   bool isAppFavorite(List<Application> favoriteApps) {
     for (var favApp in favoriteApps) {
       if (favApp.packageName == widget.app.packageName) {
-        print('the same ' + favApp.packageName + ' ' + widget.app.packageName);
         return true;
       }
     }
-    print('not the same');
     return false;
   }
 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/all_apps/bloc.dart';
 
 class SearchField extends StatefulWidget {
   @override
@@ -9,6 +12,11 @@ class _SearchFieldState extends State<SearchField> {
   final searchController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   void dispose() {
     searchController.dispose();
     super.dispose();
@@ -16,10 +24,15 @@ class _SearchFieldState extends State<SearchField> {
 
   @override
   Widget build(BuildContext context) {
+    AllAppsBloc allAppsBloc = BlocProvider.of<AllAppsBloc>(context);
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
         controller: searchController,
+        onSubmitted: (text) {
+          print(text);
+          allAppsBloc.dispatch(SearchForApps(text));
+        },
       ),
     );
   }
