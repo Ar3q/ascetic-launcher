@@ -1,5 +1,6 @@
 import 'package:ascetic_launcher/all_apps_page.dart';
 import 'package:ascetic_launcher/bloc/all_apps/bloc.dart';
+import 'package:ascetic_launcher/pages/your-section/your_section.dart';
 import 'bloc/favorite_apps/bloc.dart';
 import 'package:ascetic_launcher/clock.dart';
 import 'package:device_apps/device_apps.dart';
@@ -64,6 +65,13 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
                     child: AllAppsPage(),
                   ),
                 );
+              } else if (direction == SwipeDirection.right) {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.leftToRightWithFade,
+                      child: YourSection(),
+                    ));
               }
             },
             child: Column(

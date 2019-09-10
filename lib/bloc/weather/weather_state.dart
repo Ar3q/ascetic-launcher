@@ -1,4 +1,4 @@
-import 'package:ascetic_launcher/models/weather.dart';
+import 'package:ascetic_launcher/models/weather/weather.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 

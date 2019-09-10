@@ -1,6 +1,10 @@
 import 'package:ascetic_launcher/bloc/all_apps/bloc.dart';
+import 'package:ascetic_launcher/bloc/weather/bloc.dart';
 import 'package:ascetic_launcher/repositories/all_apps/all_apps_data_provider.dart';
 import 'package:ascetic_launcher/repositories/all_apps/all_apps_repository.dart';
+import 'package:ascetic_launcher/repositories/weather/weather-api-client.dart';
+import 'package:ascetic_launcher/repositories/weather/weather-repository.dart';
+import 'package:http/http.dart' as http;
 
 import 'bloc/favorite_apps/bloc.dart';
 import 'package:flutter/material.dart';
@@ -19,22 +23,32 @@ void main() {
     allAppsDataProvider: AllAppsDataProvider(),
   );
 
+  final WeatherRepository weatherRepository = WeatherRepository(
+    weatherApiClient: WeatherApiClient(
+      httpClient: http.Client(),
+    ),
+  );
+
   runApp(MyApp(
     favoriteAppsRepository: favoriteAppsRepository,
     allAppsRepository: allAppsRepository,
+    weatherRepository: weatherRepository,
   ));
 }
 
 class MyApp extends StatelessWidget {
   final FavoriteAppsRepository favoriteAppsRepository;
   final AllAppsRepository allAppsRepository;
+  final WeatherRepository weatherRepository;
 
-  const MyApp(
-      {Key key,
-      @required this.favoriteAppsRepository,
-      @required this.allAppsRepository})
-      : assert(favoriteAppsRepository != null),
+  const MyApp({
+    Key key,
+    @required this.favoriteAppsRepository,
+    @required this.allAppsRepository,
+    @required this.weatherRepository,
+  })  : assert(favoriteAppsRepository != null),
         assert(allAppsRepository != null),
+        assert(weatherRepository != null),
         super(key: key);
 
   @override
@@ -51,6 +65,11 @@ class MyApp extends StatelessWidget {
             allAppsRepository: allAppsRepository,
           ),
         ),
+        BlocProvider<WeatherBloc>(
+          builder: (context) => WeatherBloc(
+            weatherRepository: weatherRepository,
+          ),
+        )
       ],
       child: MaterialApp(
         title: 'Ascetic Launcher',

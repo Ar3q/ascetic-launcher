@@ -51,37 +51,54 @@ class _AppListItemState extends State<AppListItem> {
     );
   }
 
-  Row getItem(List<Application> favoriteApps) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Expanded(
-          flex: 4,
-          child: Text(
-            widget.app.appName.toString(),
-            style: TextStyle(fontSize: 20.0),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Image.memory(widget.app.icon),
-        ),
-        Visibility(
-          visible: shouldBeStarShown,
-          child: Expanded(
-            child: GestureDetector(
-              onTap: () {
-                onFavoriteClicked(isAppFavorite(favoriteApps));
-              },
-              child: Icon(
-                isAppFavorite(favoriteApps) ? Icons.star : Icons.star_border,
-                color: isAppFavorite(favoriteApps) ? Colors.yellow : null,
-                size: 35.0,
+  Container getItem(List<Application> favoriteApps) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+        color: Colors.grey[200],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(
+              flex: 4,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      widget.app.appName.toString(),
+                      style: TextStyle(fontSize: 20.0),
+                    ),
+                  ],
+                ),
+              )),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Image.memory(
+                widget.app.icon,
               ),
             ),
           ),
-        ),
-      ],
+          Visibility(
+            visible: shouldBeStarShown,
+            child: Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  onFavoriteClicked(isAppFavorite(favoriteApps));
+                },
+                child: Icon(
+                  isAppFavorite(favoriteApps) ? Icons.star : Icons.star_border,
+                  color: isAppFavorite(favoriteApps) ? Colors.yellow : null,
+                  size: 35.0,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
