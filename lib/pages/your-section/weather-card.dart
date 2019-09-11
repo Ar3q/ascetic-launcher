@@ -9,6 +9,11 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.0),
+        color: Colors.grey[200],
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: <Widget>[
           Text(

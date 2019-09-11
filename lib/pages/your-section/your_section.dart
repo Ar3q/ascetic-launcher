@@ -36,17 +36,20 @@ class _YourSectionState extends State<YourSection> {
               }
             },
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text(
-                  'Hello',
-                  style: TextStyle(fontSize: 30.0),
+                SizedBox(
+                  height: 30.0,
+                ),
+                Center(
+                  child: Text(
+                    'Hello',
+                    style: TextStyle(fontSize: 50.0),
+                  ),
                 ),
                 SizedBox(
                   height: 30.0,
                 ),
-                Card(),
-                Divider(),
-                Text('Hello'),
                 BlocBuilder<WeatherBloc, WeatherState>(
                   builder: (context, state) {
                     if (state is InitialWeatherState) {

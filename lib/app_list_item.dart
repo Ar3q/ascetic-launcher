@@ -64,13 +64,17 @@ class _AppListItemState extends State<AppListItem> {
               flex: 4,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      widget.app.appName.toString(),
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                  ],
+                child: FittedBox(
+                  alignment: Alignment.centerLeft,
+                  fit: BoxFit.none,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        widget.app.appName.toString(),
+                        style: TextStyle(fontSize: 20.0),
+                      ),
+                    ],
+                  ),
                 ),
               )),
           Expanded(
