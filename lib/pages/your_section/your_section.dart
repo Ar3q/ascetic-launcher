@@ -1,6 +1,6 @@
 import 'package:ascetic_launcher/bloc/weather/bloc.dart';
 import 'package:ascetic_launcher/bloc/weather/weather_state.dart';
-import 'package:ascetic_launcher/pages/your-section/weather-card.dart';
+import 'package:ascetic_launcher/pages/your_section/weather/weather_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
