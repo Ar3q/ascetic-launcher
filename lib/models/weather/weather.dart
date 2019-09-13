@@ -1,5 +1,6 @@
 import 'package:ascetic_launcher/models/weather/clouds.dart';
 import 'package:ascetic_launcher/models/weather/main.dart';
+import 'package:ascetic_launcher/models/weather/sys.dart';
 import 'package:ascetic_launcher/models/weather/weather_info.dart';
 import 'package:ascetic_launcher/models/weather/wind.dart';
 import 'package:equatable/equatable.dart';
@@ -29,6 +30,7 @@ class Weather extends Equatable {
   final Clouds clouds;
   final String location;
   final WeatherInfo weatherInfo;
+  final Sys sys;
 
   Weather({
     this.conditionForIcon,
@@ -37,6 +39,7 @@ class Weather extends Equatable {
     this.clouds,
     this.location,
     this.weatherInfo,
+    this.sys,
   }) : super([
           conditionForIcon,
           main,
@@ -44,6 +47,7 @@ class Weather extends Equatable {
           clouds,
           location,
           weatherInfo,
+          sys,
         ]);
 
   factory Weather.fromJson(Map<String, dynamic> json) {
@@ -55,6 +59,7 @@ class Weather extends Equatable {
       weatherInfo: WeatherInfo.fromJson(json['weather'][0]),
       conditionForIcon:
           getConditionForIcon(WeatherInfo.fromJson(json['weather'][0]).id),
+      sys: Sys.fromJson(json['sys']),
     );
   }
 
