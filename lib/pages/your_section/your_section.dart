@@ -1,6 +1,9 @@
 import 'package:ascetic_launcher/bloc/weather/bloc.dart';
 import 'package:ascetic_launcher/bloc/weather/weather_state.dart';
+import 'package:ascetic_launcher/constants/weather_card.dart';
 import 'package:ascetic_launcher/pages/your_section/weather/weather_card.dart';
+import 'package:ascetic_launcher/pages/your_section/weather/weather_card_container.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
@@ -36,7 +39,6 @@ class _YourSectionState extends State<YourSection> {
               }
             },
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 SizedBox(
                   height: 30.0,
@@ -53,7 +55,9 @@ class _YourSectionState extends State<YourSection> {
                 BlocBuilder<WeatherBloc, WeatherState>(
                   builder: (context, state) {
                     if (state is InitialWeatherState) {
-                      return CircularProgressIndicator();
+                      return Container(
+                        child: CircularProgressIndicator(),
+                      );
                     } else if (state is WeatherLoading) {
                       return CircularProgressIndicator();
                     } else if (state is WeatherLoaded) {
@@ -61,7 +65,34 @@ class _YourSectionState extends State<YourSection> {
                         weather: state.weather,
                       );
                     } else if (state is WeatherError) {
-                      return Text('error');
+                      return WeatherCardContainer(
+                        child: Text('error'),
+                      );
+                    } else if (state is NotConnectedToNetwork) {
+                      return WeatherCardContainer(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text('Connect to network'),
+                            GestureDetector(
+                              onTap: () async {
+                                ConnectivityResult connectivityResult =
+                                    await Connectivity().checkConnectivity();
+                                if (connectivityResult !=
+                                    ConnectivityResult.none) {
+                                  weatherBloc.dispatch(
+                                    GetWeather(city: 'Tyczyn'),
+                                  );
+                                }
+                              },
+                              child: Icon(
+                                Icons.refresh,
+                                size: 30.0,
+                              ),
+                            )
+                          ],
+                        ),
+                      );
                     }
                   },
                 )

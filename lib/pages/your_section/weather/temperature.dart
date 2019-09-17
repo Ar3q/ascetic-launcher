@@ -10,12 +10,13 @@ class Temperature extends StatelessWidget {
     return Container(
       child: Row(
         children: <Widget>[
+          Text(
+            temperature.toStringAsFixed(1) + ' °C',
+            style: TextStyle(fontSize: 25.0),
+          ),
           Image.asset(
             'assets/weather/iconfinder_weather-21.png',
             scale: 4.0,
-          ),
-          Text(
-            temperature.toStringAsFixed(1) + ' °C',
           ),
         ],
       ),

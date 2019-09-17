@@ -1,14 +1,11 @@
+import 'package:ascetic_launcher/constants/weather_card.dart';
 import 'package:ascetic_launcher/models/weather/weather.dart';
 import 'package:ascetic_launcher/pages/your_section/weather/cloudiness.dart';
-import 'package:ascetic_launcher/pages/your_section/weather/sunrise.dart';
-import 'package:ascetic_launcher/pages/your_section/weather/sunset.dart';
+import 'package:ascetic_launcher/pages/your_section/weather/sunrise_or_sunset.dart';
 import 'package:ascetic_launcher/pages/your_section/weather/temperature.dart';
+import 'package:ascetic_launcher/pages/your_section/weather/weather_card_container.dart';
 import 'package:ascetic_launcher/pages/your_section/weather/weather_icon.dart';
 import 'package:flutter/material.dart';
-
-const double weatherCardHeight = 100.0;
-const double topPositionedForInfo = 30.0;
-const double bottomPositionedForWeatherImage = 35.0;
 
 class WeatherCard extends StatelessWidget {
   final Weather weather;
@@ -19,14 +16,7 @@ class WeatherCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Container(
-          height: weatherCardHeight,
-          margin: EdgeInsets.symmetric(horizontal: 10.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
-            color: Colors.grey[200],
-          ),
-        ),
+        WeatherCardContainer(),
         Positioned.fill(
           top: topPositionedForInfo,
           child: Container(
@@ -35,7 +25,7 @@ class WeatherCard extends StatelessWidget {
               color: Colors.grey[300],
             ),
             margin: EdgeInsets.symmetric(horizontal: 10.0),
-            padding: EdgeInsets.symmetric(horizontal: 30.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Row(
               children: <Widget>[
                 Column(
@@ -45,23 +35,12 @@ class WeatherCard extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         Text(
-                          weather.location,
+                          '${weather.location},',
                           style: TextStyle(fontSize: 25.0),
                         ),
-                        Column(
-                          children: <Widget>[
-                            Text(weather.weatherInfo.description),
-                            Row(
-                              children: <Widget>[
-                                Temperature(
-                                  temperature: weather.main.temp,
-                                ),
-                                Cloudiness(
-                                  cloudinessInPercents: weather.clouds.all,
-                                ),
-                              ],
-                            ),
-                          ],
+                        SizedBox(width: 5.0,),
+                        Temperature(
+                          temperature: weather.main.temp,
                         )
                       ],
                     ),
@@ -90,15 +69,23 @@ class WeatherCard extends StatelessWidget {
           left: 30.0,
           child: Row(
             children: <Widget>[
-              Sunrise(
-                sunrise: weather.sys.sunrise,
+              SunriseOrSunset(
+                sunriseOrSunset: weather.sys.sunrise,
+                isSunrise: true,
               ),
               SizedBox(
                 width: 20.0,
               ),
-              Sunset(
-                sunset: weather.sys.sunset,
-              )
+              SunriseOrSunset(
+                sunriseOrSunset: weather.sys.sunset,
+                isSunrise: false,
+              ),
+              SizedBox(
+                width: 20.0,
+              ),
+              Cloudiness(
+                cloudinessInPercents: weather.clouds.all,
+              ),
             ],
           ),
         ),

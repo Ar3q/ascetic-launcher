@@ -70,6 +70,7 @@ class WeatherIcon extends StatelessWidget {
     return Image.asset(
       pathToAsset,
       scale: scale?? 1.5,
+      color: Colors.grey[800],
     );
   }
 }

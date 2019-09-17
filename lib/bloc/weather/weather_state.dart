@@ -20,3 +20,5 @@ class WeatherLoaded extends WeatherState {
 }
 
 class WeatherError extends WeatherState {}
+
+class NotConnectedToNetwork extends WeatherState {}

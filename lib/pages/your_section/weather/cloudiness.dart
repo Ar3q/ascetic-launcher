@@ -1,3 +1,4 @@
+import 'package:ascetic_launcher/constants/weather_card.dart';
 import 'package:flutter/material.dart';
 
 class Cloudiness extends StatelessWidget {
@@ -10,9 +11,13 @@ class Cloudiness extends StatelessWidget {
     return Container(
       child: Row(
         children: <Widget>[
-          Image.asset(
-            'assets/weather/iconfinder_weather-02.png',
-            scale: 4.0,
+          Icon(
+            Icons.cloud,
+            size: sunriseAndSunsetIconSize,
+            color: sunriseAndSunsetIconsColor,
+          ),
+          SizedBox(
+            width: 5.0,
           ),
           Text(
             cloudinessInPercents.toString() + '%',
