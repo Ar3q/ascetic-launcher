@@ -1,7 +1,11 @@
+import 'package:app_usage/app_usage.dart';
 import 'package:ascetic_launcher/bloc/all_apps/bloc.dart';
+import 'package:ascetic_launcher/bloc/app_usage/bloc.dart';
 import 'package:ascetic_launcher/bloc/weather/bloc.dart';
 import 'package:ascetic_launcher/repositories/all_apps/all_apps_data_provider.dart';
 import 'package:ascetic_launcher/repositories/all_apps/all_apps_repository.dart';
+import 'package:ascetic_launcher/repositories/app_usage/app_usage_data_provider.dart';
+import 'package:ascetic_launcher/repositories/app_usage/app_usage_repository.dart';
 import 'package:ascetic_launcher/repositories/weather/weather-api-client.dart';
 import 'package:ascetic_launcher/repositories/weather/weather-repository.dart';
 import 'package:http/http.dart' as http;
@@ -29,10 +33,17 @@ void main() {
     ),
   );
 
+  final AppUsageRepository appUsageRepository = AppUsageRepository(
+    appUsageDataProvider: AppUsageDataProvider(
+      appUsage: AppUsage(),
+    ),
+  );
+
   runApp(MyApp(
     favoriteAppsRepository: favoriteAppsRepository,
     allAppsRepository: allAppsRepository,
     weatherRepository: weatherRepository,
+    appUsageRepository: appUsageRepository,
   ));
 }
 
@@ -40,15 +51,18 @@ class MyApp extends StatelessWidget {
   final FavoriteAppsRepository favoriteAppsRepository;
   final AllAppsRepository allAppsRepository;
   final WeatherRepository weatherRepository;
+  final AppUsageRepository appUsageRepository;
 
   const MyApp({
     Key key,
     @required this.favoriteAppsRepository,
     @required this.allAppsRepository,
     @required this.weatherRepository,
+    @required this.appUsageRepository,
   })  : assert(favoriteAppsRepository != null),
         assert(allAppsRepository != null),
         assert(weatherRepository != null),
+        assert(appUsageRepository != null),
         super(key: key);
 
   @override
@@ -69,7 +83,12 @@ class MyApp extends StatelessWidget {
           builder: (context) => WeatherBloc(
             weatherRepository: weatherRepository,
           ),
-        )
+        ),
+        BlocProvider<AppUsageBloc>(
+          builder: (context) => AppUsageBloc(
+            appUsageRepository: appUsageRepository,
+          ),
+        ),
       ],
       child: MaterialApp(
         title: 'Ascetic Launcher',

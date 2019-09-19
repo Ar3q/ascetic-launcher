@@ -1,6 +1,7 @@
+import 'package:ascetic_launcher/bloc/app_usage/bloc.dart';
 import 'package:ascetic_launcher/bloc/weather/bloc.dart';
 import 'package:ascetic_launcher/bloc/weather/weather_state.dart';
-import 'package:ascetic_launcher/constants/weather_card.dart';
+import 'package:ascetic_launcher/pages/your_section/app_usage/app_usage_card.dart';
 import 'package:ascetic_launcher/pages/your_section/weather/weather_card.dart';
 import 'package:ascetic_launcher/pages/your_section/weather/weather_card_container.dart';
 import 'package:connectivity/connectivity.dart';
@@ -25,6 +26,17 @@ class _YourSectionState extends State<YourSection> {
       weatherBloc = BlocProvider.of<WeatherBloc>(context);
     });
     weatherBloc.dispatch(GetWeather(city: 'Tyczyn'));
+    initGettingAppUsageStats();
+  }
+
+  void initGettingAppUsageStats() {
+    DateTime endDate = DateTime.now();
+    DateTime startDate = DateTime(endDate.year, endDate.month, endDate.day,
+        endDate.hour - 1, endDate.minute - 5, 0);
+    BlocProvider.of<AppUsageBloc>(context).dispatch(GetAppUsage(
+      startTime: startDate,
+      endTime: endDate,
+    ));
   }
 
   @override
@@ -95,7 +107,13 @@ class _YourSectionState extends State<YourSection> {
                       );
                     }
                   },
-                )
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                Expanded(
+                  child: AppUsageCard(),
+                ),
               ],
             ),
           ),
