@@ -1,10 +1,9 @@
 import 'package:ascetic_launcher/bloc/all_apps/bloc.dart';
-import 'package:ascetic_launcher/search_field.dart';
+import 'package:ascetic_launcher/pages/all_apps/widgets/search_field.dart';
+import 'package:ascetic_launcher/pages/common_widgets/apps_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
-
-import 'apps_list.dart';
 
 class AllAppsPage extends StatefulWidget {
   @override

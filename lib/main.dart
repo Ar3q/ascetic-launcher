@@ -2,6 +2,7 @@ import 'package:app_usage/app_usage.dart';
 import 'package:ascetic_launcher/bloc/all_apps/bloc.dart';
 import 'package:ascetic_launcher/bloc/app_usage/bloc.dart';
 import 'package:ascetic_launcher/bloc/weather/bloc.dart';
+import 'package:ascetic_launcher/pages/main/ascetic_launcher_page.dart';
 import 'package:ascetic_launcher/repositories/all_apps/all_apps_data_provider.dart';
 import 'package:ascetic_launcher/repositories/all_apps/all_apps_repository.dart';
 import 'package:ascetic_launcher/repositories/app_usage/app_usage_data_provider.dart';
@@ -14,7 +15,6 @@ import 'bloc/favorite_apps/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'ascetic_launcher_page.dart';
 import 'repositories/favorite_apps/favorite_apps_repository.dart';
 import 'repositories/favorite_apps/favorite_apps_shared_preferences.dart';
 

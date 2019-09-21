@@ -1,16 +1,15 @@
-import 'package:ascetic_launcher/all_apps_page.dart';
 import 'package:ascetic_launcher/bloc/all_apps/bloc.dart';
+import 'package:ascetic_launcher/bloc/favorite_apps/bloc.dart';
+import 'package:ascetic_launcher/pages/all_apps/all_apps_page.dart';
+import 'package:ascetic_launcher/pages/common_widgets/apps_list.dart';
+import 'package:ascetic_launcher/pages/main/widgets/clock.dart';
 import 'package:ascetic_launcher/pages/your_section/your_section.dart';
 
-import 'bloc/favorite_apps/bloc.dart';
-import 'package:ascetic_launcher/clock.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
-
-import 'apps_list.dart';
 
 class AsceticLauncherPage extends StatefulWidget {
   AsceticLauncherPage({Key key, this.title}) : super(key: key);
