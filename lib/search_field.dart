@@ -30,7 +30,6 @@ class _SearchFieldState extends State<SearchField> {
       child: TextField(
         controller: searchController,
         onSubmitted: (text) {
-          print(text);
           allAppsBloc.dispatch(SearchForApps(text));
         },
       ),

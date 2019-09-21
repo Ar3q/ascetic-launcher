@@ -31,8 +31,8 @@ class _YourSectionState extends State<YourSection> {
 
   void initGettingAppUsageStats() {
     DateTime endDate = DateTime.now();
-    DateTime startDate = DateTime(endDate.year, endDate.month, endDate.day,
-        endDate.hour - 1, endDate.minute - 5, 0);
+    DateTime startDate =
+        DateTime(endDate.year, endDate.month, endDate.day, 0, 0, 0);
     BlocProvider.of<AppUsageBloc>(context).dispatch(GetAppUsage(
       startTime: startDate,
       endTime: endDate,
@@ -109,9 +109,10 @@ class _YourSectionState extends State<YourSection> {
                   },
                 ),
                 SizedBox(
-                  height: 30.0,
+                  height: 15.0,
                 ),
-                Expanded(
+                Container(
+                  height: 282.0,
                   child: AppUsageCard(),
                 ),
               ],

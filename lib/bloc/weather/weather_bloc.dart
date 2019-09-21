@@ -32,7 +32,6 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
           Weather weather = await weatherRepository.getWeather(event.city);
           yield WeatherLoaded(weather: weather);
         } catch (e) {
-          print(e.toString());
           yield WeatherError();
         }
       }

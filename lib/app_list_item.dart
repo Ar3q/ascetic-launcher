@@ -28,6 +28,9 @@ class _AppListItemState extends State<AppListItem> {
   Widget build(BuildContext context) {
     return Container(
       height: 50.0,
+      margin: EdgeInsets.symmetric(
+        vertical: 4.0,
+      ),
       child: GestureDetector(
         onTap: () {
           DeviceApps.openApp(widget.app.packageName);

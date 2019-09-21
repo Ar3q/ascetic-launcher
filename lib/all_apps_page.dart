@@ -70,7 +70,6 @@ class _AllAppsPageState extends State<AllAppsPage> {
                           ),
                         );
                       } else if (state is AppsFound) {
-                        print('found' + state.foundApps.toString());
                         return Expanded(
                           child: AppsList(
                             apps: state.foundApps,

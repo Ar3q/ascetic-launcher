@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ascetic_launcher/models/app_usage/application_with_time.dart';
 import 'package:ascetic_launcher/repositories/app_usage/app_usage_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
@@ -18,17 +19,18 @@ class AppUsageBloc extends Bloc<AppUsageEvent, AppUsageState> {
   ) async* {
     if (event is GetAppUsage) {
       yield LoadingAppUsageStats();
-      Map<String, double> stats;
+      List<ApplicationWithTime> stats;
       try {
-        print(event.startTime.toString());
-        print(event.endTime.toString());
-        stats = await appUsageRepository.getAllAppUsageStats(startDate: event.startTime, endDate: event.endTime);
+        stats =
+            await appUsageRepository.getAppsUsageStatsForSpecifiedNumberOfApps(
+          startDate: event.startTime,
+          endDate: event.endTime,
+          lengthOfList: 5,
+        );
+        yield LoadedAppUsageStats(usage: stats);
       } catch (e) {
-        print(e);
         yield ErrorWhileLoading();
       }
-      print(stats.toString());
-      yield LoadedAppUsageStats(usage: stats);
     }
   }
 }

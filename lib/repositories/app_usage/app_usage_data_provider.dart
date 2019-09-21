@@ -8,14 +8,13 @@ class AppUsageDataProvider {
 
   Future<Map<String, double>> getUsageStats(
       {@required DateTime startTime, @required DateTime endTime}) async {
-    Map<String, double> usage;
+    Map<String, double> usage = Map();
 
     try {
       usage = await appUsage.fetchUsage(startTime, endTime);
     } catch (e) {
       throw e;
     }
-    usage.removeWhere((key, val) => val == 0);
 
     return usage;
   }

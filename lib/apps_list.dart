@@ -6,8 +6,9 @@ import 'bloc/favorite_apps/bloc.dart';
 
 class AppsList extends StatefulWidget {
   final apps;
+  final bool scrollable;
 
-  const AppsList({this.apps});
+  const AppsList({this.apps, this.scrollable = true});
 
   @override
   _AppsListState createState() => _AppsListState();
@@ -35,11 +36,18 @@ class _AppsListState extends State<AppsList> {
         builder: (context, state) {
           if (state is FavoriteAppsLoaded) {
             return ListView.separated(
+              physics: widget.scrollable
+                  ? ScrollPhysics()
+                  : NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.all(8.0),
               itemCount: widget.apps.length,
-              itemBuilder: (context, i) =>
-                  listItemBuilder(context, i),
-              separatorBuilder: (context, i) => Divider(),
+              itemBuilder: (context, i) {
+                final app = widget.apps[i];
+                return AppListItem(
+                  app: app,
+                );
+              },
+              separatorBuilder: (context, i) => SizedBox(),
             );
           } else {
             return Center(
@@ -48,14 +56,6 @@ class _AppsListState extends State<AppsList> {
           }
         },
       ),
-    );
-  }
-
-  Widget listItemBuilder(
-      BuildContext context, int index) {
-    final app = widget.apps[index];
-    return AppListItem(
-      app: app,
     );
   }
 }

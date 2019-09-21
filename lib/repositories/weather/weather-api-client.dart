@@ -15,7 +15,6 @@ class WeatherApiClient {
     final weatherResponse = await httpClient.get(fetchWeatherUrl);
 
     if(weatherResponse.statusCode == 200) {
-      print(json.decode(weatherResponse.body));
       return Weather.fromJson(json.decode(weatherResponse.body));
     } else {
       throw Exception('Failed to fetch weatcher for $city');

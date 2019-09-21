@@ -3,7 +3,7 @@ import 'package:device_apps/device_apps.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoriteAppsSharedPreferences {
-  static const maxNumberOfFavoriteApps = 4;
+  static const maxNumberOfFavoriteApps = 5;
 
   FavoriteAppsSharedPreferences();
 

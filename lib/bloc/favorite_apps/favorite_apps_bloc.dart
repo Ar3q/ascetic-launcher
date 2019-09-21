@@ -23,8 +23,6 @@ class FavoriteAppsBloc extends Bloc<FavoriteAppsEvent, FavoriteAppsState> {
     if (event is GetFavoriteApps) {
       final List<Application> favoriteApps =
           await favoriteAppsRepository.getFavoriteApplications();
-      print('length: ' + favoriteApps.length.toString());
-      print(favoriteApps);
       yield FavoriteAppsLoaded(favoriteApps: favoriteApps);
     } else if (event is AddToFavoriteApps) {
       final List<Application> favoriteApps = await favoriteAppsRepository
@@ -32,16 +30,13 @@ class FavoriteAppsBloc extends Bloc<FavoriteAppsEvent, FavoriteAppsState> {
 
       // yield AppAddedToFavoriteApps(addedApp: event.appToAdd);
       // await Future.delayed(Duration(seconds: 1));
-      print('length: ' + favoriteApps.length.toString());
-      print(favoriteApps);
+
       yield FavoriteAppsLoaded(favoriteApps: favoriteApps);
     } else if (event is DeleteFromFavoriteApps) {
       final List<Application> favoriteApps = await favoriteAppsRepository
           .removeFavoriteApplicationAndGetListOfFavApps(event.appToDelete);
 
       // yield AppDeletedFromFavoriteApps(deletedApp: event.appToDelete);
-      print('length: ' + favoriteApps.length.toString());
-      print(favoriteApps);
       yield FavoriteAppsLoaded(favoriteApps: favoriteApps);
     }
   }

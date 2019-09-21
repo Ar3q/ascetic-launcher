@@ -7,6 +7,13 @@ class AppUsageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: 10.0,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(30.0),
+      ),
       child: BlocBuilder<AppUsageBloc, AppUsageState>(
         builder: (context, state) {
           if (state is InitialAppUsageState || state is LoadingAppUsageStats) {

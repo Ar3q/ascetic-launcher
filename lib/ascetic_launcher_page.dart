@@ -53,47 +53,52 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: SimpleGestureDetector(
-            onHorizontalSwipe: (direction) {
-              if (direction == SwipeDirection.left) {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.rightToLeftWithFade,
-                    child: AllAppsPage(),
-                  ),
-                );
-              } else if (direction == SwipeDirection.right) {
-                Navigator.push(
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(false);
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: SimpleGestureDetector(
+              onHorizontalSwipe: (direction) {
+                if (direction == SwipeDirection.left) {
+                  Navigator.push(
                     context,
                     PageTransition(
-                      type: PageTransitionType.leftToRightWithFade,
-                      child: YourSection(),
-                    ));
-              }
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Clock(),
-                BlocBuilder<FavoriteAppsBloc, FavoriteAppsState>(
-                  bloc: favoriteAppsBloc,
-                  builder: (context, state) {
-                    if (state is FavoriteAppsLoaded) {
-                      return Expanded(
-                        child: AppsList(
-                          apps: state.favoriteApps,
-                        ),
-                      );
-                    } else {
-                      return CircularProgressIndicator();
-                    }
-                  },
-                ),
-              ],
+                      type: PageTransitionType.rightToLeftWithFade,
+                      child: AllAppsPage(),
+                    ),
+                  );
+                } else if (direction == SwipeDirection.right) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.leftToRightWithFade,
+                        child: YourSection(),
+                      ));
+                }
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Clock(),
+                  BlocBuilder<FavoriteAppsBloc, FavoriteAppsState>(
+                    bloc: favoriteAppsBloc,
+                    builder: (context, state) {
+                      if (state is FavoriteAppsLoaded) {
+                        return Expanded(
+                          child: AppsList(
+                            apps: state.favoriteApps,
+                          ),
+                        );
+                      } else {
+                        return CircularProgressIndicator();
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
