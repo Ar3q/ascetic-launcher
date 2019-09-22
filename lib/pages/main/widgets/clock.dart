@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:android_intent/android_intent.dart';
+import 'package:ascetic_launcher/utils/intent_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:intent/category.dart';
+import 'package:intent/action.dart' as Action;
 
 class Clock extends StatefulWidget {
   final updateDuration;
@@ -57,9 +60,17 @@ class _ClockState extends State<Clock> {
                 style: TextStyle(fontSize: 50.0),
               ),
             ),
-            Text(
-              '$day.$month',
-              style: TextStyle(fontSize: 20.0),
+            GestureDetector(
+              child: Text(
+                '$day.$month',
+                style: TextStyle(fontSize: 20.0),
+              ),
+              onTap: () {
+                IntentUtils.useIntentWithCategory(
+                  Action.Action.ACTION_MAIN,
+                  Category.CATEGORY_APP_CALENDAR,
+                );
+              },
             )
           ],
         ));

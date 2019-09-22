@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ascetic_launcher/constants/weather-api.dart';
+import 'package:ascetic_launcher/constants/weather_api.dart';
 import 'package:ascetic_launcher/models/weather/weather.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;

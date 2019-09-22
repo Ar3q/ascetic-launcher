@@ -1,5 +1,5 @@
 import 'package:ascetic_launcher/models/weather/weather.dart';
-import 'package:ascetic_launcher/repositories/weather/weather-api-client.dart';
+import 'package:ascetic_launcher/repositories/weather/weather_api_client.dart';
 import 'package:flutter/foundation.dart';
 
 class WeatherRepository {

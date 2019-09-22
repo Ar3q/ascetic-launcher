@@ -82,9 +82,12 @@ class _AppListItemState extends State<AppListItem> {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Image.memory(
-                widget.app.icon,
+              padding: const EdgeInsets.all(6.0),
+              child: Container(
+                height: 50.0,
+                child: Image.memory(
+                  widget.app.icon,
+                ),
               ),
             ),
           ),

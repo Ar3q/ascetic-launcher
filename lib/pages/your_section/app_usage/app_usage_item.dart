@@ -32,7 +32,7 @@ class AppUsageItem extends StatelessWidget {
                   height: 50.0,
                   child: Image.memory(
                     applicationWithTime.application.icon,
-                    scale: 7.0,
+                    // scale: 7.0,
                   ),
                 ),
               ),

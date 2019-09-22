@@ -1,6 +1,7 @@
 import 'package:ascetic_launcher/bloc/app_usage/bloc.dart';
 import 'package:ascetic_launcher/bloc/weather/bloc.dart';
 import 'package:ascetic_launcher/bloc/weather/weather_state.dart';
+import 'package:ascetic_launcher/constants/weather_card.dart';
 import 'package:ascetic_launcher/pages/your_section/app_usage/app_usage_card.dart';
 import 'package:ascetic_launcher/pages/your_section/weather/weather_card.dart';
 import 'package:ascetic_launcher/pages/your_section/weather/weather_card_container.dart';
@@ -66,12 +67,13 @@ class _YourSectionState extends State<YourSection> {
                 ),
                 BlocBuilder<WeatherBloc, WeatherState>(
                   builder: (context, state) {
-                    if (state is InitialWeatherState) {
-                      return Container(
-                        child: CircularProgressIndicator(),
+                    if (state is InitialWeatherState ||
+                        state is WeatherLoading) {
+                      return WeatherCardContainer(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       );
-                    } else if (state is WeatherLoading) {
-                      return CircularProgressIndicator();
                     } else if (state is WeatherLoaded) {
                       return WeatherCard(
                         weather: state.weather,

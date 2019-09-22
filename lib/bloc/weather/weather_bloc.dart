@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:ascetic_launcher/models/weather/weather.dart';
-import 'package:ascetic_launcher/repositories/weather/weather-repository.dart';
+import 'package:ascetic_launcher/repositories/weather/weather_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';

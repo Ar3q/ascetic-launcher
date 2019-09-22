@@ -17,7 +17,15 @@ class AppUsageCard extends StatelessWidget {
       child: BlocBuilder<AppUsageBloc, AppUsageState>(
         builder: (context, state) {
           if (state is InitialAppUsageState || state is LoadingAppUsageStats) {
-            return CircularProgressIndicator();
+            return Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.0,
+              ),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
           } else if (state is LoadedAppUsageStats) {
             return AppUsageList(
               stats: state.usage,

@@ -7,8 +7,8 @@ import 'package:ascetic_launcher/repositories/all_apps/all_apps_data_provider.da
 import 'package:ascetic_launcher/repositories/all_apps/all_apps_repository.dart';
 import 'package:ascetic_launcher/repositories/app_usage/app_usage_data_provider.dart';
 import 'package:ascetic_launcher/repositories/app_usage/app_usage_repository.dart';
-import 'package:ascetic_launcher/repositories/weather/weather-api-client.dart';
-import 'package:ascetic_launcher/repositories/weather/weather-repository.dart';
+import 'package:ascetic_launcher/repositories/weather/weather_api_client.dart';
+import 'package:ascetic_launcher/repositories/weather/weather_repository.dart';
 import 'package:http/http.dart' as http;
 
 import 'bloc/favorite_apps/bloc.dart';

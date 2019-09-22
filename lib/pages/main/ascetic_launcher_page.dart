@@ -2,6 +2,7 @@ import 'package:ascetic_launcher/bloc/all_apps/bloc.dart';
 import 'package:ascetic_launcher/bloc/favorite_apps/bloc.dart';
 import 'package:ascetic_launcher/pages/all_apps/all_apps_page.dart';
 import 'package:ascetic_launcher/pages/common_widgets/apps_list.dart';
+import 'package:ascetic_launcher/pages/main/widgets/bottom_dock.dart';
 import 'package:ascetic_launcher/pages/main/widgets/clock.dart';
 import 'package:ascetic_launcher/pages/your_section/your_section.dart';
 
@@ -96,6 +97,7 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
                       }
                     },
                   ),
+                  BottomDock(),
                 ],
               ),
             ),
