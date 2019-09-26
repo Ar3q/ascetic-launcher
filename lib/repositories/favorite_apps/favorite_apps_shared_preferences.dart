@@ -20,7 +20,7 @@ class FavoriteAppsSharedPreferences {
   Future<List<String>> _getFavoriteAppsFromSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
 
-    List<String> favAppsStringList = prefs.getStringList(FAVORITE_APPLICATIONS_SHARED_PREFERENCES_KEY) ?? [];
+    List<String> favAppsStringList = prefs.getStringList(favoriteApplicationsSharedPreferencesKey) ?? [];
 
     return favAppsStringList;
   }
@@ -66,6 +66,6 @@ class FavoriteAppsSharedPreferences {
   Future<void> _saveStringListOfFavoriteAppsToSharedPreferences(
       List<String> favoriteApps) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(FAVORITE_APPLICATIONS_SHARED_PREFERENCES_KEY, favoriteApps);
+    prefs.setStringList(favoriteApplicationsSharedPreferencesKey, favoriteApps);
   }
 }

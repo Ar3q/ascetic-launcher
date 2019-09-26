@@ -13,10 +13,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 class AsceticLauncherPage extends StatefulWidget {
-  AsceticLauncherPage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _AsceticLauncherPageState createState() => _AsceticLauncherPageState();
 }
