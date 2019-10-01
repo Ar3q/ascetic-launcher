@@ -12,6 +12,8 @@ class AllAppsPage extends StatefulWidget {
 
 class _AllAppsPageState extends State<AllAppsPage> {
   AllAppsBloc allAppsBloc;
+  int buildCounter = 0;
+  Widget component = Container();
 
   @override
   void initState() {
@@ -24,19 +26,21 @@ class _AllAppsPageState extends State<AllAppsPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('builded $buildCounter');
+    buildCounter++;
     return WillPopScope(
       onWillPop: () async {
-        allAppsBloc.dispatch(GetAllApps());
+        // allAppsBloc.dispatch(GetAllApps());
         return true;
       },
       child: Scaffold(
         body: Container(
           child: SafeArea(
             child: SimpleGestureDetector(
-              onHorizontalSwipe: (direction) {
-                if (direction == SwipeDirection.right) {
+              onVerticalSwipe: (direction) {
+                if (direction == SwipeDirection.down) {
                   Navigator.pop(context);
-                  allAppsBloc.dispatch(GetAllApps());
+                  // allAppsBloc.dispatch(GetAllApps());
                 }
               },
               child: Column(
@@ -59,9 +63,49 @@ class _AllAppsPageState extends State<AllAppsPage> {
                   SizedBox(
                     height: 15.0,
                   ),
+                  // BlocListener<AllAppsBloc, AllAppsState>(
+                  //   listener: (context, state) {
+                  //     print('bloc listener');
+                  //     if (state is AllAppsLoaded) {
+                  //       setState(() {
+                  //         component = Expanded(
+                  //           child: AppsList(
+                  //             apps: state.allApps,
+                  //           ),
+                  //         );
+                  //       });
+                  //     } else if (state is AppsFound) {
+                  //       setState(() {
+                  //         component = Expanded(
+                  //           child: AppsList(
+                  //             apps: state.foundApps,
+                  //           ),
+                  //         );
+                  //       });
+                  //     } else if (state is FindingApps) {
+                  //       setState(() {
+                  //         component = Column(
+                  //           children: <Widget>[
+                  //             Text('Searching for matching apps. Please wait'),
+                  //             SizedBox(
+                  //               height: 30.0,
+                  //             ),
+                  //             CircularProgressIndicator()
+                  //           ],
+                  //         );
+                  //       });
+                  //     } else {
+                  //       setState(() {
+                  //         component = CircularProgressIndicator();
+                  //       });
+                  //     }
+                  //   },
+                  //   child: component,
+                  // ),
                   BlocBuilder<AllAppsBloc, AllAppsState>(
-                    bloc: BlocProvider.of<AllAppsBloc>(context),
+                    // bloc: BlocProvider.of<AllAppsBloc>(context),
                     builder: (context, state) {
+                      print('bloc builder');
                       if (state is AllAppsLoaded) {
                         return Expanded(
                           child: AppsList(

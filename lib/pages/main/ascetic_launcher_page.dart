@@ -58,21 +58,19 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
           child: Center(
             child: SimpleGestureDetector(
               onHorizontalSwipe: (direction) {
-                if (direction == SwipeDirection.left) {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.rightToLeftWithFade,
-                      child: AllAppsPage(),
-                    ),
-                  );
-                } else if (direction == SwipeDirection.right) {
+                if (direction == SwipeDirection.right) {
                   Navigator.push(
                       context,
                       PageTransition(
                         type: PageTransitionType.leftToRightWithFade,
                         child: YourSection(),
                       ));
+                }
+              },
+              onVerticalSwipe: (direction) {
+                if (direction == SwipeDirection.up) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AllAppsPage()));
                 }
               },
               child: Column(
@@ -82,6 +80,7 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
                   BlocBuilder<FavoriteAppsBloc, FavoriteAppsState>(
                     bloc: favoriteAppsBloc,
                     builder: (context, state) {
+                      print('bloc builder home page');
                       if (state is FavoriteAppsLoaded) {
                         return Expanded(
                           child: AppsList(
