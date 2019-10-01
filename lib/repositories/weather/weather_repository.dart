@@ -8,7 +8,8 @@ class WeatherRepository {
   WeatherRepository({@required this.weatherApiClient}) : assert(weatherApiClient != null);
 
   Future<Weather> getWeather(String city) async {
-    return await weatherApiClient.fetchWeather(city);
+    // return await weatherApiClient.fetchWeatherForCity(city);
+    return await weatherApiClient.fetchWeather();
   }
 
 }

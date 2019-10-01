@@ -37,7 +37,6 @@ class _AppsListState extends State<AppsList> {
       } else {
         _shouldReturnToHomePage = true;
       }
-      print('tralalalala');
     }
   }
 

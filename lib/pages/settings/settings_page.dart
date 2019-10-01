@@ -50,13 +50,11 @@ class _SettingsPageState extends State<SettingsPage> {
                         ],
                       );
                     } else if (state is LoadedWeatherSettingsState) {
-                      print('loaded');
                       return WeatherSettingsSection(
                         city: state.city,
                         isEnabled: state.isWeatherCardEnabled,
                       );
                     } else if (state is UpdatedWeatherSettingsState) {
-                      print('updated');
                       return WeatherSettingsSection(
                         city: state.city,
                         isEnabled: state.isWeatherCardEnabled,
