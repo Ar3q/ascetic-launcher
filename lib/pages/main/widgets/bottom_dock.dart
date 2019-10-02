@@ -9,13 +9,18 @@ class BottomDock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 50.0,
-      margin: EdgeInsets.symmetric(
-        horizontal: 10.0,
-        vertical: 10.0,
+      // margin: EdgeInsets.symmetric(
+      //   horizontal: 10.0,
+      //   vertical: 10.0,
+      // ),
+      margin: EdgeInsets.only(
+        left: 10.0,
+        right: 10.0,
+        bottom: 10.0,
       ),
       padding: EdgeInsets.symmetric(
-        // horizontal: 16.0,
-      ),
+          // horizontal: 16.0,
+          ),
       decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(

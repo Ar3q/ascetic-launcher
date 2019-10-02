@@ -88,7 +88,7 @@ class _YourSectionState extends State<YourSection> {
                         ),
                         Align(
                           alignment: Alignment.topRight,
-                          child: Padding(
+                          child: Container(
                             padding: EdgeInsets.only(
                               right: 10.0,
                             ),
@@ -100,7 +100,11 @@ class _YourSectionState extends State<YourSection> {
                                       builder: (context) => SettingsPage(),
                                     ));
                               },
-                              child: Icon(Icons.settings),
+                              child: Icon(
+                                Icons.settings,
+                                size: 28.0,
+                                color: Colors.grey[500],
+                              ),
                             ),
                           ),
                         )

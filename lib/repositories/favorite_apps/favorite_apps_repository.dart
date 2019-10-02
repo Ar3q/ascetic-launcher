@@ -19,7 +19,7 @@ class FavoriteAppsRepository {
     try {
       await favoriteAppsSharedPreferences.addToFavoriteApp(app);
     } catch (e) {
-      print(e);
+      throw e;
     }
     
     return await getFavoriteApplications();

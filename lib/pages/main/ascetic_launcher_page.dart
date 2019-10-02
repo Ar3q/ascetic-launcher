@@ -21,20 +21,8 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
   FavoriteAppsBloc favoriteAppsBloc;
   AllAppsBloc allAppsBloc;
 
+  List<Application> allApps = <Application>[];
   bool isShowingAllApps = false;
-
-  Future<List<Application>> convertToListOfApps(List<String> appList) async {
-    List<Application> applicationsList = List<Application>();
-
-    for (var packageName in appList) {
-      final app = await DeviceApps.getApp(packageName, true);
-      if (app != null) {
-        applicationsList.add(app);
-      }
-    }
-
-    return applicationsList;
-  }
 
   @override
   void initState() {
@@ -53,47 +41,66 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
       onWillPop: () {
         return Future.value(false);
       },
-      child: Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: SimpleGestureDetector(
-              onHorizontalSwipe: (direction) {
-                if (direction == SwipeDirection.right) {
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.leftToRightWithFade,
-                        child: YourSection(),
-                      ));
-                }
-              },
-              onVerticalSwipe: (direction) {
-                if (direction == SwipeDirection.up) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AllAppsPage()));
-                }
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Clock(),
-                  BlocBuilder<FavoriteAppsBloc, FavoriteAppsState>(
-                    bloc: favoriteAppsBloc,
-                    builder: (context, state) {
-                      print('bloc builder home page');
-                      if (state is FavoriteAppsLoaded) {
-                        return Expanded(
-                          child: AppsList(
-                            apps: state.favoriteApps,
+      child: BlocListener<AllAppsBloc, AllAppsState>(
+        listener: (context, state) {
+          if (state is AllAppsLoaded) {
+            setState(() {
+              allApps = state.allApps;
+            });
+          }
+        },
+        child: Scaffold(
+          body: SafeArea(
+            child: Center(
+              child: SimpleGestureDetector(
+                onHorizontalSwipe: (direction) {
+                  if (direction == SwipeDirection.right) {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.leftToRightWithFade,
+                          child: YourSection(),
+                        ));
+                  }
+                },
+                onVerticalSwipe: (direction) {
+                  if (direction == SwipeDirection.up) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AllAppsPage(
+                            allApps: allApps,
                           ),
-                        );
-                      } else {
-                        return CircularProgressIndicator();
-                      }
-                    },
-                  ),
-                  BottomDock(),
-                ],
+                        ));
+                  }
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Clock(),
+                    BlocBuilder<FavoriteAppsBloc, FavoriteAppsState>(
+                      bloc: favoriteAppsBloc,
+                      builder: (context, state) {
+                        print('bloc builder home page');
+                        if (state is FavoriteAppsLoaded) {
+                          return Expanded(
+                            child: AppsList(
+                              apps: state.favoriteApps,
+                            ),
+                          );
+                        } else {
+                          return CircularProgressIndicator();
+                        }
+                      },
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_up,
+                      size: 30.0,
+                      color: Colors.grey[300],
+                    ),
+                    BottomDock(),
+                  ],
+                ),
               ),
             ),
           ),
