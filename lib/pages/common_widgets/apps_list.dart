@@ -49,9 +49,10 @@ class _AppsListState extends State<AppsList> {
         builder: (context, state) {
           if (state is FavoriteAppsLoaded) {
             return ListView.separated(
-              controller: _scrollController,
+              // controller: _scrollController,
               physics: widget.scrollable
-                  ? BouncingScrollPhysics()
+                  // ? BouncingScrollPhysics()
+                  ? ScrollPhysics()
                   : NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.all(8.0),
               itemCount: widget.apps.length,

@@ -26,3 +26,5 @@ class AppDeletedFromFavoriteApps extends FavoriteAppsState {
 
   AppDeletedFromFavoriteApps({this.deletedApp}) : super([deletedApp]);
 }
+
+class CannotAddMoreAppsToFavoriteApps extends FavoriteAppsState {}

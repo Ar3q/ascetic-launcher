@@ -25,13 +25,21 @@ class FavoriteAppsBloc extends Bloc<FavoriteAppsEvent, FavoriteAppsState> {
           await favoriteAppsRepository.getFavoriteApplications();
       yield FavoriteAppsLoaded(favoriteApps: favoriteApps);
     } else if (event is AddToFavoriteApps) {
-      final List<Application> favoriteApps = await favoriteAppsRepository
-          .addFavoriteApplicationAndGetListOfFavApps(event.appToAdd);
-
       // yield AppAddedToFavoriteApps(addedApp: event.appToAdd);
       // await Future.delayed(Duration(seconds: 1));
 
-      yield FavoriteAppsLoaded(favoriteApps: favoriteApps);
+      List<Application> favoriteApps =
+          await favoriteAppsRepository.getFavoriteApplications();
+      try {
+        favoriteApps = await favoriteAppsRepository
+            .addFavoriteApplicationAndGetListOfFavApps(event.appToAdd);
+      } catch (e) {
+        print('tralalalala');
+        yield CannotAddMoreAppsToFavoriteApps();
+        print('tralalalala2');
+      } finally {
+        yield FavoriteAppsLoaded(favoriteApps: favoriteApps);
+      }
     } else if (event is DeleteFromFavoriteApps) {
       final List<Application> favoriteApps = await favoriteAppsRepository
           .removeFavoriteApplicationAndGetListOfFavApps(event.appToDelete);

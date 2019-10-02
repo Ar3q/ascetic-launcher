@@ -92,6 +92,11 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
                       }
                     },
                   ),
+                  Icon(
+                    Icons.keyboard_arrow_up,
+                    size: 30.0,
+                    color: Colors.grey[300],
+                  ),
                   BottomDock(),
                 ],
               ),

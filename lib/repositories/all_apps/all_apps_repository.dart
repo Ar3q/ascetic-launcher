@@ -11,7 +11,7 @@ class AllAppsRepository {
   Future<List<Application>> getAllApplications() async {
     List<Application> allApps = await allAppsDataProvider.getAllApps();
 
-    allApps.sort((a, b) => a.appName.compareTo(b.appName));
+    allApps.sort((a, b) => a.appName.toLowerCase().compareTo(b.appName.toLowerCase()));
 
     return allApps;
   }
