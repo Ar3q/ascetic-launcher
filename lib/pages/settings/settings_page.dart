@@ -22,11 +22,11 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       body: SafeArea(
         child: SimpleGestureDetector(
-          onHorizontalSwipe: (direction){
-            if(direction == SwipeDirection.left) {
+          onHorizontalSwipe: (direction) {
+            if (direction == SwipeDirection.left) {
               Navigator.pop(context);
             }
-          }, 
+          },
           child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
@@ -37,7 +37,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   child: Center(
                     child: Text(
                       'Settings',
-                      style: TextStyle(fontSize: 50.0),
+                      style: Theme.of(context).textTheme.headline,
                     ),
                   ),
                 ),

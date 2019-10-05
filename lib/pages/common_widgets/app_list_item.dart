@@ -57,7 +57,7 @@ class _AppListItemState extends State<AppListItem> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: Colors.grey[200],
+        color: Theme.of(context).primaryColorLight,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -65,7 +65,10 @@ class _AppListItemState extends State<AppListItem> {
           Expanded(
               flex: 4,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 20.0,
+                ),
                 child: FittedBox(
                   alignment: Alignment.centerLeft,
                   fit: BoxFit.none,
@@ -82,7 +85,7 @@ class _AppListItemState extends State<AppListItem> {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding: const EdgeInsets.all(8.0),
               child: Container(
                 height: 50.0,
                 child: Image.memory(

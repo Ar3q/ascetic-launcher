@@ -14,7 +14,7 @@ class WeatherCardContainer extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.0),
-        color: Colors.grey[200],
+        color: Theme.of(context).primaryColorLight,
       ),
       child: child,
     );

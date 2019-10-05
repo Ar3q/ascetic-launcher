@@ -22,7 +22,7 @@ class WeatherCard extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30.0),
-              color: Colors.grey[300],
+              color: Theme.of(context).primaryColor,
             ),
             margin: EdgeInsets.symmetric(horizontal: 10.0),
             padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -38,7 +38,9 @@ class WeatherCard extends StatelessWidget {
                           '${weather.location},',
                           style: TextStyle(fontSize: 25.0),
                         ),
-                        SizedBox(width: 5.0,),
+                        SizedBox(
+                          width: 5.0,
+                        ),
                         Temperature(
                           temperature: weather.main.temp,
                         )
@@ -56,7 +58,7 @@ class WeatherCard extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.grey[200],
+              color: Theme.of(context).primaryColorLight,
             ),
             child: WeatherIcon(
               condition: weather.conditionForIcon,

@@ -12,6 +12,7 @@ import 'package:ascetic_launcher/repositories/weather/weather_api_client.dart';
 import 'package:ascetic_launcher/repositories/weather/weather_repository.dart';
 import 'package:ascetic_launcher/repositories/weather_settings/weather_settings_repository.dart';
 import 'package:ascetic_launcher/repositories/weather_settings/weather_settings_shared_preferences.dart';
+import 'package:ascetic_launcher/themes/grey_theme.dart';
 import 'package:http/http.dart' as http;
 
 import 'bloc/favorite_apps/bloc.dart';
@@ -109,9 +110,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Ascetic Launcher',
-        theme: ThemeData(
-          primarySwatch: Colors.teal,
-        ),
+        theme: greyTheme,
         home: AsceticLauncherPage(),
       ),
     );

@@ -46,7 +46,9 @@ class _TextWithSwitchState extends State<TextWithSwitch> {
               ),
             ),
             Switch(
-              onChanged: (bool value) {},
+              onChanged: (bool value) {
+                onElementClick();
+              },
               value: switchValue,
             )
           ],

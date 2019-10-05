@@ -50,6 +50,7 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
           }
         },
         child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           body: SafeArea(
             child: Center(
               child: SimpleGestureDetector(
@@ -96,7 +97,7 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
                     Icon(
                       Icons.keyboard_arrow_up,
                       size: 30.0,
-                      color: Colors.grey[300],
+                      color: Theme.of(context).primaryColor,
                     ),
                     BottomDock(),
                   ],
