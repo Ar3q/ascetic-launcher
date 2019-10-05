@@ -4,17 +4,29 @@ import 'package:meta/meta.dart';
 
 @immutable
 abstract class AppUsageState extends Equatable {
-  AppUsageState([List props = const <dynamic>[]]) : super(props);
+  const AppUsageState();
 }
 
-class InitialAppUsageState extends AppUsageState {}
+class InitialAppUsageState extends AppUsageState {
+  @override
+  List<Object> get props => null;
+}
 
-class LoadingAppUsageStats extends AppUsageState {}
+class LoadingAppUsageStats extends AppUsageState {
+  @override
+  List<Object> get props => null;
+}
 
 class LoadedAppUsageStats extends AppUsageState {
   final List<ApplicationWithTime> usage;
 
-  LoadedAppUsageStats({@required this.usage}) : super([usage]);
+  LoadedAppUsageStats({@required this.usage});
+
+  @override
+  List<Object> get props => [usage];
 }
 
-class ErrorWhileLoading extends AppUsageState {}
+class ErrorWhileLoading extends AppUsageState {
+  @override
+  List<Object> get props => null;
+}

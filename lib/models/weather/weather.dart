@@ -40,15 +40,7 @@ class Weather extends Equatable {
     this.location,
     this.weatherInfo,
     this.sys,
-  }) : super([
-          conditionForIcon,
-          main,
-          wind,
-          clouds,
-          location,
-          weatherInfo,
-          sys,
-        ]);
+  });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
@@ -100,4 +92,17 @@ class Weather extends Equatable {
       throw Exception('Condition for icon not found. Given id: $id');
     }
   }
+
+  @override
+  List<Object> get props => [
+        [
+          conditionForIcon,
+          main,
+          wind,
+          clouds,
+          location,
+          weatherInfo,
+          sys,
+        ]
+      ];
 }

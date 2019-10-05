@@ -3,13 +3,15 @@ import 'package:meta/meta.dart';
 
 @immutable
 abstract class AppUsageEvent extends Equatable {
-  AppUsageEvent([List props = const <dynamic>[]]) : super(props);
+  const AppUsageEvent();
 }
 
 class GetAppUsage extends AppUsageEvent {
   final DateTime startTime;
   final DateTime endTime;
 
-  GetAppUsage({@required this.startTime, @required this.endTime})
-      : super([startTime, endTime]);
+  GetAppUsage({@required this.startTime, @required this.endTime});
+
+  @override
+  List<Object> get props => [startTime, endTime];
 }
