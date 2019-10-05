@@ -4,21 +4,33 @@ import 'package:meta/meta.dart';
 
 @immutable
 abstract class AllAppsState extends Equatable {
-  AllAppsState([List props = const <dynamic>[]]) : super(props);
+  const AllAppsState();
 }
 
-class InitialAllAppsState extends AllAppsState {}
+class InitialAllAppsState extends AllAppsState {
+  @override
+  List<Object> get props => null;
+}
 
 class AllAppsLoaded extends AllAppsState {
   final List<Application> allApps;
 
-  AllAppsLoaded({this.allApps}) : super([allApps]);
+  AllAppsLoaded({this.allApps});
+
+  @override
+  List<Object> get props => [allApps];
 }
 
-class FindingApps extends AllAppsState {}
+class FindingApps extends AllAppsState {
+  @override
+  List<Object> get props => null;
+}
 
 class AppsFound extends AllAppsState {
   final List<Application> foundApps;
 
-  AppsFound(this.foundApps) : super([foundApps]);
+  AppsFound(this.foundApps);
+
+  @override
+  List<Object> get props => [foundApps];
 }

@@ -59,6 +59,7 @@ class _YourSectionState extends State<YourSection> {
         }
       },
       child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         body: SafeArea(
           child: Container(
             child: SimpleGestureDetector(
@@ -83,15 +84,20 @@ class _YourSectionState extends State<YourSection> {
                           alignment: Alignment.center,
                           child: Text(
                             'Hello',
-                            style: TextStyle(fontSize: 50.0),
+                            style: Theme.of(context).textTheme.headline,
                           ),
                         ),
                         Align(
                           alignment: Alignment.topRight,
                           child: Container(
-                            padding: EdgeInsets.only(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColorLight,
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            margin: EdgeInsets.only(
                               right: 10.0,
                             ),
+                            padding: EdgeInsets.all(3.0),
                             child: GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -103,7 +109,7 @@ class _YourSectionState extends State<YourSection> {
                               child: Icon(
                                 Icons.settings,
                                 size: 28.0,
-                                color: Colors.grey[500],
+                                color: Theme.of(context).primaryColorDark,
                               ),
                             ),
                           ),

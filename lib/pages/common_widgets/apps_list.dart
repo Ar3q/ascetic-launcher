@@ -54,7 +54,7 @@ class _AppsListState extends State<AppsList> {
                   // ? BouncingScrollPhysics()
                   ? ScrollPhysics()
                   : NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               itemCount: widget.apps.length,
               itemBuilder: (context, i) {
                 final app = widget.apps[i];

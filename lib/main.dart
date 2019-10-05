@@ -4,6 +4,7 @@ import 'package:ascetic_launcher/bloc/app_usage/bloc.dart';
 import 'package:ascetic_launcher/bloc/weather/bloc.dart';
 import 'package:ascetic_launcher/bloc/weather_settings/bloc.dart';
 import 'package:ascetic_launcher/pages/main/ascetic_launcher_page.dart';
+import 'package:ascetic_launcher/provider/dynamic_theme.dart';
 import 'package:ascetic_launcher/repositories/all_apps/all_apps_data_provider.dart';
 import 'package:ascetic_launcher/repositories/all_apps/all_apps_repository.dart';
 import 'package:ascetic_launcher/repositories/app_usage/app_usage_data_provider.dart';
@@ -12,7 +13,12 @@ import 'package:ascetic_launcher/repositories/weather/weather_api_client.dart';
 import 'package:ascetic_launcher/repositories/weather/weather_repository.dart';
 import 'package:ascetic_launcher/repositories/weather_settings/weather_settings_repository.dart';
 import 'package:ascetic_launcher/repositories/weather_settings/weather_settings_shared_preferences.dart';
+import 'package:ascetic_launcher/themes/blue_theme.dart';
+import 'package:ascetic_launcher/themes/dark_theme.dart';
+import 'package:ascetic_launcher/themes/green_theme.dart';
+import 'package:ascetic_launcher/themes/grey_theme.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import 'bloc/favorite_apps/bloc.dart';
 import 'package:flutter/material.dart';
@@ -47,12 +53,15 @@ void main() {
     weatherSettingsSharedPreferences: WeatherSettingsSharedPreferences(),
   );
 
-  runApp(MyApp(
-    favoriteAppsRepository: favoriteAppsRepository,
-    allAppsRepository: allAppsRepository,
-    weatherRepository: weatherRepository,
-    appUsageRepository: appUsageRepository,
-    weatherSettingsRepository: weatherSettingsRepository,
+  runApp(ChangeNotifierProvider<DynamicTheme>(
+    builder: (_) => DynamicTheme(),
+    child: MyApp(
+      favoriteAppsRepository: favoriteAppsRepository,
+      allAppsRepository: allAppsRepository,
+      weatherRepository: weatherRepository,
+      appUsageRepository: appUsageRepository,
+      weatherSettingsRepository: weatherSettingsRepository,
+    ),
   ));
 }
 
@@ -77,8 +86,28 @@ class MyApp extends StatelessWidget {
         assert(weatherSettingsRepository != null),
         super(key: key);
 
+  ThemeData getTheme(MyThemesKeys themeKey) {
+    switch (themeKey) {
+      case MyThemesKeys.GREY:
+        return greyTheme;
+        break;
+      case MyThemesKeys.GREEN:
+        return greenTheme;
+        break;
+      case MyThemesKeys.BLUE:
+        return blueTheme;
+        break;
+      case MyThemesKeys.DARK:
+        return darkTheme;
+        break;
+      default:
+        return greyTheme;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final DynamicTheme themeProvider = Provider.of<DynamicTheme>(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider<FavoriteAppsBloc>(
@@ -109,9 +138,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Ascetic Launcher',
-        theme: ThemeData(
-          primarySwatch: Colors.teal,
-        ),
+        theme: getTheme(themeProvider.currentTheme),
         home: AsceticLauncherPage(),
       ),
     );
