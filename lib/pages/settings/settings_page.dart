@@ -1,7 +1,10 @@
 import 'package:ascetic_launcher/bloc/weather_settings/bloc.dart';
 import 'package:ascetic_launcher/pages/settings/widgets/weather_settings_section.dart';
+import 'package:ascetic_launcher/provider/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grouped_buttons/grouped_buttons.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -19,7 +22,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<DynamicTheme>(context);
+    print(themeProvider.currentTheme);
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: SimpleGestureDetector(
           onHorizontalSwipe: (direction) {
@@ -70,6 +76,30 @@ class _SettingsPageState extends State<SettingsPage> {
                     },
                   ),
                 ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                RadioButtonGroup(
+                  labels: <String>['Grey', 'Green', 'Blue', 'Dark'],
+                  onSelected: (selected) {
+                    switch (selected) {
+                      case 'Grey':
+                        themeProvider.changeCurrentTheme(MyThemesKeys.GREY);
+                        break;
+                      case 'Green':
+                        themeProvider.changeCurrentTheme(MyThemesKeys.GREEN);
+                        break;
+                      case 'Blue':
+                        themeProvider.changeCurrentTheme(MyThemesKeys.BLUE);
+                        break;
+                      case 'Dark':
+                        themeProvider.changeCurrentTheme(MyThemesKeys.DARK);
+                        break;
+                      default:
+                        themeProvider.changeCurrentTheme(MyThemesKeys.GREY);
+                    }
+                  },
+                )
               ],
             ),
           ),

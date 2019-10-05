@@ -22,7 +22,7 @@ class WeatherCard extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30.0),
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).primaryColorLight,
             ),
             margin: EdgeInsets.symmetric(horizontal: 10.0),
             padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -54,7 +54,7 @@ class WeatherCard extends StatelessWidget {
         ),
         Positioned.fill(
           bottom: bottomPositionedForWeatherImage,
-          left: 270.0,
+          left: 230.0,
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,

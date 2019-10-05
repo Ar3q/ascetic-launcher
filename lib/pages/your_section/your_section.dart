@@ -59,6 +59,7 @@ class _YourSectionState extends State<YourSection> {
         }
       },
       child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         body: SafeArea(
           child: Container(
             child: SimpleGestureDetector(

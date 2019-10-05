@@ -18,7 +18,7 @@ class AppUsageItem extends StatelessWidget {
             vertical: 4.0,
           ),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).primaryColorLight,
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: Row(

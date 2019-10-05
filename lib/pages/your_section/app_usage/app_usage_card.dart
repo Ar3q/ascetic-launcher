@@ -11,7 +11,7 @@ class AppUsageCard extends StatelessWidget {
         horizontal: 10.0,
       ),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColorLight,
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: BlocBuilder<AppUsageBloc, AppUsageState>(
