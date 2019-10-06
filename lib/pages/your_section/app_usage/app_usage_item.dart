@@ -38,6 +38,9 @@ class AppUsageItem extends StatelessWidget {
               ),
               Text(
                 '${applicationWithTime.application.appName}',
+                style: TextStyle(
+                  color: Theme.of(context).primaryColorDark,
+                ),
               ),
             ],
           ),
@@ -45,6 +48,9 @@ class AppUsageItem extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               '${minutes.toString()} minutes',
+              style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+              ),
             ),
           ),
         ],

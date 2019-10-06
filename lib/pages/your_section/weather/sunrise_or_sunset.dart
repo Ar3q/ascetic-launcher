@@ -5,7 +5,8 @@ class SunriseOrSunset extends StatelessWidget {
   final DateTime sunriseOrSunset;
   final bool isSunrise;
 
-  const SunriseOrSunset({@required this.sunriseOrSunset, @required this.isSunrise});
+  const SunriseOrSunset(
+      {@required this.sunriseOrSunset, @required this.isSunrise});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,10 @@ class SunriseOrSunset extends StatelessWidget {
           SizedBox(
             width: 5.0,
           ),
-          Text('$hour:$minute'),
+          Text(
+            '$hour:$minute',
+            style: Theme.of(context).textTheme.caption,
+          ),
         ],
       ),
     );

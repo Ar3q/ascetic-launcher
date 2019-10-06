@@ -10,6 +10,19 @@ final ThemeData darkTheme = ThemeData(
   textTheme: TextTheme(
     headline: TextStyle(
       fontSize: 35.0,
+      color: Colors.grey[400],
+    ),
+    display2: TextStyle(
+      fontSize: 50.0,
+      color: Colors.grey[400],
+    ),
+    subhead: TextStyle(
+      fontSize: 20.0,
+      color: Colors.grey[400],
+    ),
+    caption: TextStyle(
+      fontSize: 15.0,
+      color: Colors.grey[400],
     ),
   ),
 );

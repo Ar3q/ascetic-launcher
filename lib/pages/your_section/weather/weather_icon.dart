@@ -5,16 +5,18 @@ class WeatherIcon extends StatelessWidget {
   final WeatherCondition condition;
   final double iconScale;
 
-  const WeatherIcon({@required this.condition, this.iconScale}) : assert(condition != null);
+  const WeatherIcon({@required this.condition, this.iconScale})
+      : assert(condition != null);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: getWeatherIcon(condition, iconScale),
+      child: getWeatherIcon(
+          condition, iconScale, Theme.of(context).primaryColorDark),
     );
   }
 
-  Image getWeatherIcon(WeatherCondition condition, double scale) {
+  Image getWeatherIcon(WeatherCondition condition, double scale, Color color) {
     const startOfPath = 'assets/weather';
     String pathToAsset;
 
@@ -69,8 +71,8 @@ class WeatherIcon extends StatelessWidget {
 
     return Image.asset(
       pathToAsset,
-      scale: scale?? 1.5,
-      color: Colors.grey[800],
+      scale: scale ?? 1.5,
+      color: color,
     );
   }
 }

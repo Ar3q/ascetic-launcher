@@ -36,7 +36,10 @@ class WeatherCard extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           '${weather.location},',
-                          style: TextStyle(fontSize: 25.0),
+                          style: TextStyle(
+                            fontSize: 25.0,
+                            color: Theme.of(context).primaryColorDark,
+                          ),
                         ),
                         SizedBox(
                           width: 5.0,

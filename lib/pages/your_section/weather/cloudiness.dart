@@ -21,6 +21,7 @@ class Cloudiness extends StatelessWidget {
           ),
           Text(
             cloudinessInPercents.toString() + '%',
+            style: Theme.of(context).textTheme.caption,
           )
         ],
       ),

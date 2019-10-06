@@ -57,13 +57,13 @@ class _ClockState extends State<Clock> {
               },
               child: Text(
                 '$hour:$minute',
-                style: TextStyle(fontSize: 50.0),
+                style: Theme.of(context).textTheme.display2,
               ),
             ),
             GestureDetector(
               child: Text(
                 '$day.$month',
-                style: TextStyle(fontSize: 20.0),
+                style: Theme.of(context).textTheme.subhead,
               ),
               onTap: () {
                 IntentUtils.useIntentWithCategory(

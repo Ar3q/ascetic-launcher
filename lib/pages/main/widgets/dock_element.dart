@@ -19,13 +19,13 @@ class DockElement extends StatelessWidget {
         height: 50.0,
         width: 50.0,
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColorLight,
           borderRadius: BorderRadius.circular(30.0),
         ),
         child: Icon(
           iconData,
           size: 25.0,
-          color: Colors.grey[800],
+          color: Theme.of(context).primaryColorDark,
         ),
       ),
     );

@@ -56,7 +56,7 @@ class _AppListItemState extends State<AppListItem> {
   Container getItem(List<Application> favoriteApps) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(30.0),
         color: Theme.of(context).primaryColorLight,
       ),
       child: Row(
@@ -76,7 +76,9 @@ class _AppListItemState extends State<AppListItem> {
                     children: <Widget>[
                       Text(
                         widget.app.appName.toString(),
-                        style: TextStyle(fontSize: 20.0),
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: Theme.of(context).primaryColorDark),
                       ),
                     ],
                   ),
@@ -103,8 +105,8 @@ class _AppListItemState extends State<AppListItem> {
                 },
                 child: Icon(
                   isAppFavorite(favoriteApps) ? Icons.star : Icons.star_border,
-                  color: isAppFavorite(favoriteApps) ? Colors.yellow : null,
-                  size: 35.0,
+                  color: Theme.of(context).primaryColorDark,
+                  size: 30.0,
                 ),
               ),
             ),
