@@ -9,13 +9,13 @@ class FavoriteAppsRepository {
   FavoriteAppsRepository({@required this.favoriteAppsSharedPreferences})
       : assert(favoriteAppsSharedPreferences != null);
 
-  Future<List<Application>> getFavoriteApplications() async {
-    final List<Application> favoriteApplications = await favoriteAppsSharedPreferences.getFavoriteApps();
+  Future<List<ApplicationWithIcon>> getFavoriteApplications() async {
+    final List<ApplicationWithIcon> favoriteApplications = await favoriteAppsSharedPreferences.getFavoriteApps();
 
     return favoriteApplications;
   }
 
-  Future<List<Application>> addFavoriteApplicationAndGetListOfFavApps(Application app) async {
+  Future<List<ApplicationWithIcon>> addFavoriteApplicationAndGetListOfFavApps(Application app) async {
     try {
       await favoriteAppsSharedPreferences.addToFavoriteApp(app);
     } catch (e) {
@@ -25,7 +25,7 @@ class FavoriteAppsRepository {
     return await getFavoriteApplications();
   }
 
-  Future<List<Application>> removeFavoriteApplicationAndGetListOfFavApps(Application app) async {
+  Future<List<ApplicationWithIcon>> removeFavoriteApplicationAndGetListOfFavApps(Application app) async {
     try {
       await favoriteAppsSharedPreferences.deleteFromFavoriteApps(app);
     } catch (e) {

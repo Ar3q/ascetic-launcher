@@ -21,7 +21,7 @@ class FavoriteAppsBloc extends Bloc<FavoriteAppsEvent, FavoriteAppsState> {
     FavoriteAppsEvent event,
   ) async* {
     if (event is GetFavoriteApps) {
-      final List<Application> favoriteApps =
+      final List<ApplicationWithIcon> favoriteApps =
           await favoriteAppsRepository.getFavoriteApplications();
       yield FavoriteAppsLoaded(favoriteApps: favoriteApps);
     } else if (event is AddToFavoriteApps) {

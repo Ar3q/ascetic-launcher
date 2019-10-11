@@ -7,10 +7,10 @@ class FavoriteAppsSharedPreferences {
 
   FavoriteAppsSharedPreferences();
 
-  Future<List<Application>> getFavoriteApps() async {
+  Future<List<ApplicationWithIcon>> getFavoriteApps() async {
     final List<String> appsFromSharedPreferences =
         await _getFavoriteAppsFromSharedPreferences();
-    final List<Application> favoriteApps =
+    final List<ApplicationWithIcon> favoriteApps =
         await _convertStringListOfFavoriteAppsToApplicationList(
             appsFromSharedPreferences);
 
@@ -25,9 +25,9 @@ class FavoriteAppsSharedPreferences {
     return favAppsStringList;
   }
 
-  Future<List<Application>> _convertStringListOfFavoriteAppsToApplicationList(
+  Future<List<ApplicationWithIcon>> _convertStringListOfFavoriteAppsToApplicationList(
       List<String> listOfStringApps) async {
-    List<Application> appsList = List<Application>();
+    List<ApplicationWithIcon> appsList = List<ApplicationWithIcon>();
 
     for (var stringApp in listOfStringApps) {
       final app = await DeviceApps.getApp(stringApp, true);
@@ -37,7 +37,7 @@ class FavoriteAppsSharedPreferences {
     return appsList;
   }
 
-  Future<Application> addToFavoriteApp(Application app) async {
+  Future<ApplicationWithIcon> addToFavoriteApp(Application app) async {
     final List<String> favoriteAppsFromSharedPrefs =
         await _getFavoriteAppsFromSharedPreferences();
 
@@ -52,7 +52,7 @@ class FavoriteAppsSharedPreferences {
     return app;
   }
 
-  Future<Application> deleteFromFavoriteApps(Application app) async {
+  Future<ApplicationWithIcon> deleteFromFavoriteApps(Application app) async {
     final List<String> favoriteAppsFromSharedPrefs =
         await _getFavoriteAppsFromSharedPreferences();
 

@@ -8,19 +8,19 @@ class AllAppsRepository {
   AllAppsRepository({@required this.allAppsDataProvider})
       : assert(allAppsDataProvider != null);
 
-  Future<List<Application>> getAllApplications() async {
-    List<Application> allApps = await allAppsDataProvider.getAllApps();
+  Future<List<ApplicationWithIcon>> getAllApplications() async {
+    List<ApplicationWithIcon> allApps = await allAppsDataProvider.getAllApps();
 
     allApps.sort((a, b) => a.appName.toLowerCase().compareTo(b.appName.toLowerCase()));
 
     return allApps;
   }
 
-  Future<List<Application>> getApplicationsWhithNameContainingPhrase(
+  Future<List<ApplicationWithIcon>> getApplicationsWhithNameContainingPhrase(
       String searchedPhrase) async {
-    List<Application> allApps = await getAllApplications();
+    List<ApplicationWithIcon> allApps = await getAllApplications();
 
-    List<Application> matchingApps =
+    List<ApplicationWithIcon> matchingApps =
         allApps.where((app) => app.appName.toLowerCase().contains(searchedPhrase.toLowerCase())).toList();
 
     return matchingApps;

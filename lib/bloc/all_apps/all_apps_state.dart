@@ -13,7 +13,7 @@ class InitialAllAppsState extends AllAppsState {
 }
 
 class AllAppsLoaded extends AllAppsState {
-  final List<Application> allApps;
+  final List<ApplicationWithIcon> allApps;
 
   AllAppsLoaded({this.allApps});
 
@@ -27,7 +27,7 @@ class FindingApps extends AllAppsState {
 }
 
 class AppsFound extends AllAppsState {
-  final List<Application> foundApps;
+  final List<ApplicationWithIcon> foundApps;
 
   AppsFound(this.foundApps);
 

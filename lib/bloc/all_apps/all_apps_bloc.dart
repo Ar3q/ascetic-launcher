@@ -19,11 +19,11 @@ class AllAppsBloc extends Bloc<AllAppsEvent, AllAppsState> {
     AllAppsEvent event,
   ) async* {
     if (event is GetAllApps) {
-      List<Application> allApps = await allAppsRepository.getAllApplications();
+      List<ApplicationWithIcon> allApps = await allAppsRepository.getAllApplications();
       yield AllAppsLoaded(allApps: allApps);
     } else if(event is SearchForApps) {
       yield FindingApps();
-      List<Application> matchingApps = await allAppsRepository.getApplicationsWhithNameContainingPhrase(event.searchPhrase);
+      List<ApplicationWithIcon> matchingApps = await allAppsRepository.getApplicationsWhithNameContainingPhrase(event.searchPhrase);
       yield AppsFound(matchingApps);
     }
   }

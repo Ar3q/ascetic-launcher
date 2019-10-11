@@ -13,7 +13,7 @@ class InitialFavoriteApps extends FavoriteAppsState {
 }
 
 class FavoriteAppsLoaded extends FavoriteAppsState {
-  final List<Application> favoriteApps;
+  final List<ApplicationWithIcon> favoriteApps;
 
   FavoriteAppsLoaded({this.favoriteApps});
 

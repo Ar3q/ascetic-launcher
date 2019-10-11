@@ -1,11 +1,12 @@
 import 'package:ascetic_launcher/bloc/favorite_apps/bloc.dart';
+import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app_list_item.dart';
 
 class AppsList extends StatefulWidget {
-  final apps;
+  final List<ApplicationWithIcon> apps;
   final bool scrollable;
 
   const AppsList({this.apps, this.scrollable = true});

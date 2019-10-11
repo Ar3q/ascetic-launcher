@@ -87,11 +87,11 @@ class _AllAppsPageState extends State<AllAppsPage> {
                       builder: (context, state) {
                         print('bloc builder');
                         if (state is AllAppsLoaded) {
-                    return Expanded(
-                      child: AppsList(
-                        apps: state.allApps,
-                      ),
-                    );
+                          return Expanded(
+                            child: AppsList(
+                              apps: state.allApps,
+                            ),
+                          );
                         } else if (state is AppsFound) {
                           return Expanded(
                             child: AppsList(
