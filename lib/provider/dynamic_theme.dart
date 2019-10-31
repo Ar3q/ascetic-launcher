@@ -4,11 +4,11 @@ enum MyThemesKeys {
   GREY,
   GREEN,
   BLUE,
-  DARK
+  DARK_GREY,
 }
 
 class DynamicTheme with ChangeNotifier {
-  MyThemesKeys _currentTheme = MyThemesKeys.DARK;
+  MyThemesKeys _currentTheme = MyThemesKeys.DARK_GREY;
 
   MyThemesKeys get currentTheme => _currentTheme;
 

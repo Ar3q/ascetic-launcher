@@ -28,8 +28,9 @@ class FindingApps extends AllAppsState {
 
 class AppsFound extends AllAppsState {
   final List<ApplicationWithIcon> foundApps;
+  final List<ApplicationWithIcon> allApps;
 
-  AppsFound(this.foundApps);
+  AppsFound(this.foundApps, this.allApps);
 
   @override
   List<Object> get props => [foundApps];

@@ -31,8 +31,8 @@ class _AsceticLauncherPageState extends State<AsceticLauncherPage> {
       favoriteAppsBloc = BlocProvider.of<FavoriteAppsBloc>(context);
       allAppsBloc = BlocProvider.of<AllAppsBloc>(context);
     });
-    favoriteAppsBloc.dispatch(GetFavoriteApps());
-    allAppsBloc.dispatch(GetAllApps());
+    favoriteAppsBloc.add(GetFavoriteApps());
+    allAppsBloc.add(GetAllApps());
   }
 
   @override

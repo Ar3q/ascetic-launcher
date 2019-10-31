@@ -11,17 +11,22 @@ class AllAppsRepository {
   Future<List<ApplicationWithIcon>> getAllApplications() async {
     List<ApplicationWithIcon> allApps = await allAppsDataProvider.getAllApps();
 
-    allApps.sort((a, b) => a.appName.toLowerCase().compareTo(b.appName.toLowerCase()));
+    allApps.sort(
+        (a, b) => a.appName.toLowerCase().compareTo(b.appName.toLowerCase()));
 
     return allApps;
   }
 
   Future<List<ApplicationWithIcon>> getApplicationsWhithNameContainingPhrase(
-      String searchedPhrase) async {
-    List<ApplicationWithIcon> allApps = await getAllApplications();
+      String searchedPhrase,
+      [List<ApplicationWithIcon> allApplications]) async {
+    List<ApplicationWithIcon> allApps =
+        allApplications ?? await getAllApplications();
 
-    List<ApplicationWithIcon> matchingApps =
-        allApps.where((app) => app.appName.toLowerCase().contains(searchedPhrase.toLowerCase())).toList();
+    List<ApplicationWithIcon> matchingApps = allApps
+        .where((app) =>
+            app.appName.toLowerCase().contains(searchedPhrase.toLowerCase()))
+        .toList();
 
     return matchingApps;
   }

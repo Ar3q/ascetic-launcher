@@ -36,7 +36,7 @@ class _WeatherSettingsSectionState extends State<WeatherSettingsSection> {
           //   value: widget.isEnabled,
           //   onChanged: (value) {
           // BlocProvider.of<WeatherSettingsBloc>(context)
-          //     .dispatch(UpdateWeatherSettings(
+          //     .add(UpdateWeatherSettings(
           //   city: widget.city,
           //   isWeatherCardEnabled: value,
           // ));
@@ -47,7 +47,7 @@ class _WeatherSettingsSectionState extends State<WeatherSettingsSection> {
             onValueChanged: (bool value) {
               print('New value: $value');
               BlocProvider.of<WeatherSettingsBloc>(context)
-                  .dispatch(UpdateWeatherSettings(
+                  .add(UpdateWeatherSettings(
                 city: widget.city,
                 isWeatherCardEnabled: value,
               ));
@@ -68,12 +68,12 @@ class _WeatherSettingsSectionState extends State<WeatherSettingsSection> {
                     controller: _controller,
                     onChanged: (text) {
                       BlocProvider.of<WeatherSettingsBloc>(context)
-                          .dispatch(UpdateWeatherSettings(
+                          .add(UpdateWeatherSettings(
                         city: text,
                         isWeatherCardEnabled: widget.isEnabled,
                       ));
                       BlocProvider.of<WeatherBloc>(context)
-                          .dispatch(GetWeather(city: text));
+                          .add(GetWeather(city: text));
                     },
                   ),
                 )

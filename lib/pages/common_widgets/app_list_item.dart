@@ -121,13 +121,13 @@ class _AppListItemState extends State<AppListItem> {
 
     if (isFavorite) {
       //remove
-      favoriteAppsBloc.dispatch(DeleteFromFavoriteApps(widget.app));
+      favoriteAppsBloc.add(DeleteFromFavoriteApps(widget.app));
       setState(() {
         shouldBeStarShown = false;
       });
     } else {
       //add
-      favoriteAppsBloc.dispatch(AddToFavoriteApps(widget.app));
+      favoriteAppsBloc.add(AddToFavoriteApps(widget.app));
     }
   }
 

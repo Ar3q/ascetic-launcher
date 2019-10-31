@@ -1,3 +1,4 @@
+import 'package:device_apps/device_apps.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -13,9 +14,10 @@ class GetAllApps extends AllAppsEvent {
 
 class SearchForApps extends AllAppsEvent {
   final String searchPhrase;
+  final List<Application> applications;
 
-  SearchForApps(this.searchPhrase);
+  SearchForApps(this.searchPhrase, this.applications);
 
   @override
-  List<Object> get props => [searchPhrase];
+  List<Object> get props => [searchPhrase, applications];
 }

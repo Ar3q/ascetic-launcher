@@ -80,7 +80,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   height: 10.0,
                 ),
                 RadioButtonGroup(
-                  labels: <String>['Grey', 'Green', 'Blue', 'Dark'],
+                  labels: <String>['Grey', 'Green', 'Blue', 'Dark Grey'],
                   onSelected: (selected) {
                     switch (selected) {
                       case 'Grey':
@@ -92,8 +92,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       case 'Blue':
                         themeProvider.changeCurrentTheme(MyThemesKeys.BLUE);
                         break;
-                      case 'Dark':
-                        themeProvider.changeCurrentTheme(MyThemesKeys.DARK);
+                      case 'Dark Grey':
+                        themeProvider
+                            .changeCurrentTheme(MyThemesKeys.DARK_GREY);
                         break;
                       default:
                         themeProvider.changeCurrentTheme(MyThemesKeys.GREY);

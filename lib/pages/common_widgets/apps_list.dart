@@ -24,7 +24,7 @@ class _AppsListState extends State<AppsList> {
   void initState() {
     super.initState();
     favoriteAppsBloc = BlocProvider.of<FavoriteAppsBloc>(context);
-    favoriteAppsBloc.dispatch(GetFavoriteApps());
+    favoriteAppsBloc.add(GetFavoriteApps());
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
   }

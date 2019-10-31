@@ -28,17 +28,16 @@ class _YourSectionState extends State<YourSection> {
     setState(() {
       weatherBloc = BlocProvider.of<WeatherBloc>(context);
     });
-    weatherBloc.dispatch(GetWeather(city: 'Tyczyn'));
+    weatherBloc.add(GetWeather(city: 'Tyczyn'));
     initGettingAppUsageStats();
-    BlocProvider.of<WeatherSettingsBloc>(context)
-        .dispatch(GetWeatherSettings());
+    BlocProvider.of<WeatherSettingsBloc>(context).add(GetWeatherSettings());
   }
 
   void initGettingAppUsageStats() {
     DateTime endDate = DateTime.now();
     DateTime startDate =
         DateTime(endDate.year, endDate.month, endDate.day, 0, 0, 0);
-    BlocProvider.of<AppUsageBloc>(context).dispatch(GetAppUsage(
+    BlocProvider.of<AppUsageBloc>(context).add(GetAppUsage(
       startTime: startDate,
       endTime: endDate,
     ));
@@ -152,7 +151,7 @@ class _YourSectionState extends State<YourSection> {
                                             .checkConnectivity();
                                     if (connectivityResult !=
                                         ConnectivityResult.none) {
-                                      weatherBloc.dispatch(
+                                      weatherBloc.add(
                                         GetWeather(city: 'Tyczyn'),
                                       );
                                     }

@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
       case MyThemesKeys.BLUE:
         return blueTheme;
         break;
-      case MyThemesKeys.DARK:
+      case MyThemesKeys.DARK_GREY:
         return darkTheme;
         break;
       default:

@@ -1,5 +1,6 @@
 import 'package:ascetic_launcher/bloc/all_apps/bloc.dart';
 import 'package:ascetic_launcher/bloc/favorite_apps/bloc.dart';
+import 'package:ascetic_launcher/pages/all_apps/widgets/search_field.dart';
 import 'package:ascetic_launcher/pages/common_widgets/apps_list.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +22,14 @@ class _AllAppsPageState extends State<AllAppsPage> {
   int buildCounter = 0;
   Widget component = Container();
 
+  bool isSearchFieldShown = false;
+
   @override
   void initState() {
     super.initState();
     setState(() {
       allAppsBloc = BlocProvider.of<AllAppsBloc>(context);
     });
-    // allAppsBloc.dispatch(GetAllApps());
   }
 
   @override
@@ -36,6 +38,12 @@ class _AllAppsPageState extends State<AllAppsPage> {
     buildCounter++;
     return WillPopScope(
       onWillPop: () async {
+        if (isSearchFieldShown) {
+          setState(() {
+            isSearchFieldShown = !isSearchFieldShown;
+          });
+          return false;
+        }
         return true;
       },
       child: BlocListener<FavoriteAppsBloc, FavoriteAppsState>(
@@ -43,13 +51,26 @@ class _AllAppsPageState extends State<AllAppsPage> {
           if (state is CannotAddMoreAppsToFavoriteApps) {
             Fluttertoast.showToast(
               msg: 'Maximum 5 favorite apps is allowed',
-              backgroundColor: Colors.red,
+              // backgroundColor: Colors.red,
               textColor: Colors.white,
             );
           }
         },
         child: Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                isSearchFieldShown = !isSearchFieldShown;
+              });
+              print('search $isSearchFieldShown');
+            },
+            child: Icon(
+              Icons.search,
+              color: Theme.of(context).primaryColorDark,
+            ),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
           body: Container(
             child: SafeArea(
               child: SimpleGestureDetector(
@@ -60,29 +81,17 @@ class _AllAppsPageState extends State<AllAppsPage> {
                 },
                 child: Column(
                   children: <Widget>[
-                    // SizedBox(
-                    //   height: 30.0,
-                    // ),
-                    // Center(
-                    //   child: Text(
-                    //     'All your applications',
-                    //     style: TextStyle(
-                    //       fontSize: 30.0,
-                    //     ),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 15.0,
-                    // ),
-                    // SearchField(),
-                    // SizedBox(
-                    //   height: 15.0,
-                    // ),
-                    // Expanded(
-                    //   child: AppsList(
-                    //     apps: widget.allApps,
-                    //   ),
-                    // )
+                    Visibility(
+                      visible: isSearchFieldShown,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        child: SearchField(
+                          apps: widget.allApps,
+                        ),
+                      ),
+                    ),
                     BlocBuilder<AllAppsBloc, AllAppsState>(
                       builder: (context, state) {
                         print('bloc builder');
@@ -93,15 +102,28 @@ class _AllAppsPageState extends State<AllAppsPage> {
                             ),
                           );
                         } else if (state is AppsFound) {
+                          if (isSearchFieldShown) {
+                            return Expanded(
+                              child: AppsList(
+                                apps: state.foundApps,
+                              ),
+                            );
+                          }
                           return Expanded(
                             child: AppsList(
-                              apps: state.foundApps,
+                              apps: state.allApps,
                             ),
                           );
                         } else if (state is FindingApps) {
                           return Column(
                             children: <Widget>[
-                              Text('Searching for matching apps. Please wait'),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16.0),
+                                child: Text(
+                                  'Searching for matching apps. Please wait',
+                                ),
+                              ),
                               SizedBox(
                                 height: 30.0,
                               ),
@@ -109,7 +131,9 @@ class _AllAppsPageState extends State<AllAppsPage> {
                             ],
                           );
                         } else {
-                          return CircularProgressIndicator();
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
                         }
                       },
                     )
